@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/c++,qt,qtcreator
-# Edit at https://www.toptal.com/developers/gitignore?templates=c++,qt,qtcreator
-
 ### C++ ###
 # Prerequisites
 *.d
@@ -112,6 +109,3 @@ compile_commands.json
 # Flags for Clang Code Model
 *.cxxflags
 *.cflags
-
-
-# End of https://www.toptal.com/developers/gitignore/api/c++,qt,qtcreator
