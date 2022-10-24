@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1446</width>
+    <height>847</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">MainWindow
+{
+	background-color: rgb(22, 25, 31);
+}
+
+QLabel
+{
+	color: white;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="1" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTabWidget::pane
+{
+	border: 1px;
+	background: rgb(35,40,49);
+}
+
+QTabBar::tab
+{
+	background: rgb(76,81,93);
+	min-width: 55ex;
+	min-height: 8ex;
+	margin-left: 1px;
+	left: -1px; 
+	color: white;
+}
+
+QTabBar::tab::selected
+{
+	background: rgb(35,40,49);
+}
+
+QTabBar::tab::hover
+{
+	background: rgb(56,62,73);
+}
+</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_settings">
+       <attribute name="title">
+        <string>Настройки</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Количество источников</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="number_consumers">
+          <property name="value">
+           <number>7</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="lamb">
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>3.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="4">
+         <widget class="QPushButton" name="saveConf">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Сохранить конфигурацию</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Размер буфера</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="number_producers">
+          <property name="value">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="number_requests">
+          <property name="maximum">
+           <number>999999</number>
+          </property>
+          <property name="value">
+           <number>4000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Значение λ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="buffer_size">
+          <property name="value">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Количество устройств</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="font">
+           <font>
+            <family>Calibri</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Количество заявок</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_step">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="title">
+        <string>Пошаговый режим</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="1" column="0" colspan="2">
+         <widget class="QPushButton" name="startManualMode">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Сделать итерацию</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGraphicsView" name="graphicsView"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_auto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="title">
+        <string>Автоматический режим</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QTabWidget" name="tabWidget_2">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="Graphs">
+           <attribute name="title">
+            <string>Графики</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="1" column="1">
+             <widget class="Line" name="line_9">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="Line" name="line_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QCustomPlot" name="time_by_buf" native="true"/>
+            </item>
+            <item row="5" column="2">
+             <widget class="QCustomPlot" name="time_by_cons" native="true"/>
+            </item>
+            <item row="0" column="0">
+             <widget class="Line" name="line_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCustomPlot" name="prob_by_prod" native="true"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="Line" name="line_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="Line" name="line_12">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="Line" name="line_11">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCustomPlot" name="prob_by_buf" native="true"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="Line" name="line_13">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="4">
+             <widget class="QCustomPlot" name="us_by_cons" native="true"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QCustomPlot" name="us_by_prod" native="true"/>
+            </item>
+            <item row="5" column="0">
+             <widget class="QCustomPlot" name="prob_by_cons" native="true"/>
+            </item>
+            <item row="3" column="3">
+             <widget class="Line" name="line_14">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCustomPlot" name="time_by_prod" native="true"/>
+            </item>
+            <item row="4" column="2">
+             <widget class="Line" name="line_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QCustomPlot" name="us_by_buf" native="true"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="4">
+             <widget class="Line" name="line_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="4">
+             <widget class="Line" name="line_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="Line" name="line_17">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="Line" name="line_18">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" colspan="5">
+             <widget class="QPushButton" name="startAutoMode">
+              <property name="text">
+               <string>Начать тестирование</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_8">
+           <attribute name="title">
+            <string>Сводные таблицы</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="1" column="0">
+             <widget class="QTableWidget" name="tableWidget">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>Номер источника</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Количество заявок</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Вероятность отказа</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Сред. вр. пребывания</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Сред. вр. ожидания</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Сред. вр. обслуживания</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Дисперсия вр. ожидания</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Дисперсия вр. обслуживания</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QTableWidget" name="tableWidget_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>200</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>Номер прибора</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Коэффициент использования</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1446</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>12</pointsize>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
