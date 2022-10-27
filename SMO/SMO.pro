@@ -26,7 +26,6 @@ SOURCES += \
 
 HEADERS += \
     ProducerManager.h \
-    RandDouble.h \
     Simulator.h \
     StatisticsManager.h \
     TestClass.h \

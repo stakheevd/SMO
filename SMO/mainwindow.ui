@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1446</width>
-    <height>847</height>
+    <width>1515</width>
+    <height>901</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,7 +83,7 @@ QTabBar::tab::hover
         <item row="3" column="1">
          <widget class="QSpinBox" name="number_consumers">
           <property name="value">
-           <number>7</number>
+           <number>6</number>
           </property>
          </widget>
         </item>
@@ -132,7 +132,7 @@ QTabBar::tab::hover
         <item row="1" column="1">
          <widget class="QSpinBox" name="number_producers">
           <property name="value">
-           <number>4</number>
+           <number>5</number>
           </property>
          </widget>
         </item>
@@ -142,7 +142,7 @@ QTabBar::tab::hover
            <number>999999</number>
           </property>
           <property name="value">
-           <number>4000</number>
+           <number>20000</number>
           </property>
          </widget>
         </item>
@@ -216,7 +216,24 @@ QTabBar::tab::hover
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QGraphicsView" name="graphicsView"/>
+         <widget class="QGraphicsView" name="graphicsView">
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+          <property name="transformationAnchor">
+           <enum>QGraphicsView::NoAnchor</enum>
+          </property>
+          <property name="resizeAnchor">
+           <enum>QGraphicsView::NoAnchor</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QPushButton" name="clear_sim_button">
+          <property name="text">
+           <string>Перезагрузить симуляцию</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -238,33 +255,6 @@ QTabBar::tab::hover
             <string>Графики</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_6">
-            <item row="1" column="1">
-             <widget class="Line" name="line_9">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="Line" name="line_7">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="Line" name="line_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QCustomPlot" name="time_by_buf" native="true"/>
-            </item>
-            <item row="5" column="2">
-             <widget class="QCustomPlot" name="time_by_cons" native="true"/>
-            </item>
             <item row="0" column="0">
              <widget class="Line" name="line_10">
               <property name="orientation">
@@ -272,117 +262,11 @@ QTabBar::tab::hover
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QCustomPlot" name="prob_by_prod" native="true"/>
-            </item>
-            <item row="2" column="2">
-             <widget class="Line" name="line_8">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="3">
-             <widget class="Line" name="line_12">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="Line" name="line_11">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="2">
-             <widget class="Line" name="line_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QCustomPlot" name="prob_by_buf" native="true"/>
-            </item>
-            <item row="1" column="3">
-             <widget class="Line" name="line_13">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="4">
-             <widget class="QCustomPlot" name="us_by_cons" native="true"/>
-            </item>
-            <item row="1" column="4">
-             <widget class="QCustomPlot" name="us_by_prod" native="true"/>
-            </item>
             <item row="5" column="0">
              <widget class="QCustomPlot" name="prob_by_cons" native="true"/>
             </item>
-            <item row="3" column="3">
-             <widget class="Line" name="line_14">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="2">
              <widget class="QCustomPlot" name="time_by_prod" native="true"/>
-            </item>
-            <item row="4" column="2">
-             <widget class="Line" name="line_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4">
-             <widget class="QCustomPlot" name="us_by_buf" native="true"/>
-            </item>
-            <item row="6" column="0">
-             <widget class="Line" name="line_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="4">
-             <widget class="Line" name="line_15">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="4">
-             <widget class="Line" name="line_16">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="Line" name="line_17">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
             </item>
             <item row="2" column="4">
              <widget class="Line" name="line_18">
@@ -397,6 +281,139 @@ QTabBar::tab::hover
                <string>Начать тестирование</string>
               </property>
              </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="Line" name="line_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="Line" name="line_14">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="Line" name="line_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="Line" name="line_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QCustomPlot" name="us_by_prod" native="true"/>
+            </item>
+            <item row="0" column="4">
+             <widget class="Line" name="line_17">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCustomPlot" name="prob_by_prod" native="true"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="Line" name="line_11">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2">
+             <widget class="QCustomPlot" name="time_by_cons" native="true"/>
+            </item>
+            <item row="6" column="2">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="Line" name="line_9">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="4">
+             <widget class="Line" name="line_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="4">
+             <widget class="QCustomPlot" name="us_by_cons" native="true"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="Line" name="line_13">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QCustomPlot" name="us_by_buf" native="true"/>
+            </item>
+            <item row="4" column="4">
+             <widget class="Line" name="line_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="Line" name="line_12">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCustomPlot" name="prob_by_buf" native="true"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QCustomPlot" name="time_by_buf" native="true"/>
             </item>
            </layout>
           </widget>
@@ -514,8 +531,8 @@ QTabBar::tab::hover
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1446</width>
-     <height>21</height>
+     <width>1515</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>

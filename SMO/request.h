@@ -18,6 +18,8 @@ public:
   void set_receiving_time(double time);
   void set_release_time(double time);
 
+  int getId() const;
+
 private:
   const int id;
   const int producer_id;
@@ -30,12 +32,25 @@ private:
 class StepData
 {
 public:
-  StepData(std::vector<Request*> prod_data, std::vector<Request*> buf_data, std::vector<Request*> cons_data, double t_stamp);
+  StepData(const std::vector<Request*>& prod_data, const std::vector<Request*>& buf_data, const std::vector<Request*>& cons_data, const double t_stamp);
 
-private:
+  double get_timestamp() const;
+  void set_timestamp(double new_timestamp);
+
+  const std::vector<Request*>& getProducer_data() const;
+  void setProducer_data(const std::vector<Request*>& newProducer_data);
+
+  const std::vector<Request*>& getBuffer_data() const;
+  void setBuffer_data(const std::vector<Request*>& newBuffer_data);
+
+  const std::vector<Request*>& getConsumer_data() const;
+  void setConsumer_data(const std::vector<Request*>& newConsumer_data);
+
   std::vector<Request*> producer_data;
   std::vector<Request*> buffer_data;
   std::vector<Request*> consumer_data;
+private:
+  // TODO: Rename getters and setters
   double timestamp;
 };
 

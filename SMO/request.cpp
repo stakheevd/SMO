@@ -44,10 +44,55 @@ void Request::set_release_time(double time)
   release_time = time;
 }
 
-StepData::StepData(std::vector<Request*> prod_data, std::vector<Request*> buf_data, std::vector<Request*> cons_data, double t_stamp):
+int Request::getId() const
+{
+  return id;
+}
+// TODO: Refactor size of line
+StepData::StepData(const std::vector<Request*>& prod_data, const std::vector<Request*>& buf_data, const std::vector<Request*>& cons_data, const double t_stamp):
   producer_data(prod_data),
   buffer_data(buf_data),
   consumer_data(cons_data),
   timestamp(t_stamp)
 {
+}
+
+double StepData::get_timestamp() const
+{
+  return timestamp;
+}
+
+void StepData::set_timestamp(double new_timestamp)
+{
+  timestamp = new_timestamp;
+}
+
+const std::vector<Request*>& StepData::getProducer_data() const
+{
+  return producer_data;
+}
+
+void StepData::setProducer_data(const std::vector<Request*>& newProducer_data)
+{
+  producer_data = newProducer_data;
+}
+
+const std::vector<Request*>& StepData::getBuffer_data() const
+{
+  return buffer_data;
+}
+
+void StepData::setBuffer_data(const std::vector<Request*>& newBuffer_data)
+{
+  buffer_data = newBuffer_data;
+}
+
+const std::vector<Request*>& StepData::getConsumer_data() const
+{
+  return consumer_data;
+}
+
+void StepData::setConsumer_data(const std::vector<Request*>& newConsumer_data)
+{
+  consumer_data = newConsumer_data;
 }

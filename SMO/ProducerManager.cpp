@@ -8,7 +8,8 @@ ProducerManager::ProducerManager(StatisticsManager* manager, int num_prod, doubl
 
 	for (int i = 0; i < num_prod; i++)
 	{
-		producers.push_back(Producer(i+1, lamb));
+    std::srand((unsigned)time(NULL));
+    producers.push_back(Producer(i+1, lamb));
 	}
 
 	// Choose min request
@@ -21,7 +22,7 @@ std::vector<Request*> ProducerManager::get_all_requests()
 
 	for (int i = 0; i < producers.size(); i++)
 	{
-		vec_requests.push_back(producers[i].get_stored_request());
+    vec_requests.push_back(producers[i].stored_request);
 	}
 
 	return vec_requests;
@@ -57,6 +58,11 @@ int ProducerManager::get_released_requests() const
 void ProducerManager::set_released_requests(int new_released_requests)
 {
   released_requests = new_released_requests;
+}
+
+const std::vector<Producer>& ProducerManager::getProducers() const
+{
+  return producers;
 }
 
 void ProducerManager::init_next_event_time()

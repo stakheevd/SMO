@@ -22,6 +22,8 @@ public:
   int get_released_requests() const;
   void set_released_requests(int new_released_requests);
 
+  const std::vector<Producer>& getProducers() const;
+
 private:
   std::vector<Producer> producers; // TODO: MB pointer?
   StatisticsManager* st_manager;

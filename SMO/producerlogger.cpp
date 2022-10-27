@@ -24,29 +24,35 @@ double ProducerLogger::get_average_elapsed_time() const
 
 double ProducerLogger::get_average_processing_time() const
 {
-	return ((double)processing_time / released_number_requests); // total_number?
+  //return ((double)processing_time / total_number_requests); // total_number?
+  return ((double)processing_time / released_number_requests); // total_number?
 }
 
 double ProducerLogger::get_average_waiting_time() const
 {
-	return ((double)waiting_time / released_number_requests); // total_num?
+  //return ((double)waiting_time / total_number_requests); // total_num?
+  return ((double)waiting_time / released_number_requests); // total_num?
 }
 
 double ProducerLogger::get_dispersion_waiting_time() const
 {
-	return (((double)squared_waiting_time / released_number_requests)
-					- std::pow(get_average_waiting_time(), 2));
+  //return (((double)squared_waiting_time / total_number_requests)
+  //				- std::pow(get_average_waiting_time(), 2));
+  return (((double)squared_waiting_time / released_number_requests)
+          - std::pow(get_average_waiting_time(), 2));
 }
 
 double ProducerLogger::get_dispersion_processing_time() const
 {
-	return (((double)squared_processing_time / released_number_requests)
-					- std::pow(get_average_processing_time(), 2));
+  //return (((double)squared_processing_time / total_number_requests)
+  //        - std::pow(get_average_processing_time(), 2));
+  return (((double)squared_processing_time / released_number_requests)
+          - std::pow(get_average_processing_time(), 2));
 }
 
 double ProducerLogger::get_usage_ratio(double time) const
 {
-	return (processing_time / time);
+  return ((double)processing_time  / time);
 }
 
 void ProducerLogger::request_created()

@@ -2,12 +2,9 @@
 #define CONSUMER_H
 
 #include <random>
-#include <time.h>
 #include <cmath>
-#include <stdlib.h>
+#include <chrono>
 
-
-#include "RandDouble.h"
 #include "request.h"
 
 class Consumer
@@ -28,7 +25,6 @@ private:
   const double lambda;
   double previous_time;
   Request* current_request;
-  Rand_double rand_num_gen;
 };
 
 #endif // CONSUMER_H

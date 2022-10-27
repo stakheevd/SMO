@@ -11,30 +11,15 @@ Consumer::Consumer(int cons_id, double lamb):
 
 void Consumer::receive_request(Request* req)
 {
-	//std::srand((unsigned)time(NULL));
-	double temp_l = -(1.0 / (double)lambda);
+  std::mt19937_64 rng;
+  // initialize the random number generator with time-dependent seed
+  uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed>>32)};
+  rng.seed(ss);
+  // initialize a uniform distribution between 0 and 1
+  std::uniform_real_distribution<double> unif(0, 1);
 
-	if (temp_l == std::numeric_limits<double>::infinity())
-		{
-			int p = 5;
-			int mm = 0;
-		}
-	double temp_r = std::log(rand_num_gen()); //std::log(double(std::rand()) / RAND_MAX);
-
-	if (temp_r == std::numeric_limits<double>::infinity())
-		{
-			int p = 5;
-			int mm = 0;
-		}
-
-	double delta_t = temp_l * temp_r;
-	//double delta_t = (double)(-1 / lambda) * std::log((double)rand() / RAND_MAX);
-
-	if (delta_t == std::numeric_limits<double>::infinity())
-		{
-			int p = 5;
-			int mm = 0;
-		}
+  double delta_t = -(1.0 / (double)lambda) * std::log(unif(rng));
 
 	if (previous_time > req->get_creation_time())
 	{

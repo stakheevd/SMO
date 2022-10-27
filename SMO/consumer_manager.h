@@ -24,10 +24,10 @@ public:
 private:
 	std::vector<Consumer> consumers;
 	StatisticsManager* st_manager;
-	int next_free_consumer_id; // indexOfNextFreeDevice
+  int next_free_consumer_id;
 	int current_position;
 	double next_event_time;
-	void init_next_submit_time(); // TODO: Rename, it's choosing consumer by priority
+  void select_consumer_by_priority();
 	void increment_position();
 };
 

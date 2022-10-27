@@ -4,9 +4,10 @@
 //#include <random>
 #include <cmath>
 #include <time.h>
+#include <chrono>
 #include <stdlib.h>
+#include <random>
 
-#include "RandDouble.h"
 #include "request.h"
 
 class Producer
@@ -23,12 +24,11 @@ public:
   Request *get_stored_request() const;
   void setStored_request(Request *new_stored_request);
 
+  Request* stored_request;
 private:
   const int producer_id;
   const double lambda;
   int last_request_id;
-  Request* stored_request;
-  Rand_double rand_num_gen;
 };
 
 #endif // PRODUCER_H

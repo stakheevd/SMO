@@ -46,7 +46,7 @@ private:
   double elapsed_time;
   double waiting_time;
   double squared_waiting_time;
-  double processing_time;
+  double processing_time; // Это среднее время обработки на приборах, осёл
   double squared_processing_time;
 };
 

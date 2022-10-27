@@ -12,7 +12,7 @@ ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumer
 
 	st_manager = manager;
 
-	init_next_submit_time();
+  select_consumer_by_priority();
 }
 
 
@@ -20,10 +20,15 @@ std::vector<Request*> ConsumerManager::get_all_requests()
 {
 	std::vector<Request*> received_requests;
 	// TODO: Сделать for each через auto
-	for (int i = 0; i < consumers.size(); i++)
-	{
-		received_requests.push_back(consumers[i].get_current_request());
-	}
+  //for (int i = 0; i < consumers.size(); i++)
+  //{
+  //	received_requests.push_back(consumers[i].get_current_request());
+  //}
+
+  for (auto req : consumers)
+  {
+    received_requests.push_back(req.get_current_request());
+  }
 
 	return received_requests;
 }
@@ -34,7 +39,7 @@ void ConsumerManager::release_consumer()
 
 	consumers[next_free_consumer_id].release_consumer();
 
-	init_next_submit_time();
+  select_consumer_by_priority();
 }
 
 bool ConsumerManager::can_receive_request()
@@ -58,7 +63,7 @@ void ConsumerManager::receive_request(Request* request)
 
 			st_manager->init_received_request(request);
 
-			init_next_submit_time();
+      select_consumer_by_priority();
 			return;
 		}
 	}
@@ -86,7 +91,7 @@ bool ConsumerManager::is_empty()
 	return true;
 }
 
-void ConsumerManager::init_next_submit_time()
+void ConsumerManager::select_consumer_by_priority()
 {
 	double min_time = std::numeric_limits<double>::max();
 

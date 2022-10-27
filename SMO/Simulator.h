@@ -12,13 +12,6 @@
 #include "StatisticsManager.h"
 
 
-enum Mode
-{
-  Manual,
-  Automatic
-};
-
-
 class Simulator
 {
 public:
@@ -29,10 +22,32 @@ public:
   PivotTable* get_pivot_table();
   void run_full_simulation();
 
+
+
+  ProducerManager* getProducers() const;
+  void setProducers(ProducerManager* newProducers);
+
+  double getConsumer_time() const;
+  void setConsumer_time(double newConsumer_time);
+
+  BufferManager* getBuffers() const;
+  void setBuffers(BufferManager* newBuffers);
+
+  ConsumerManager* getConsumers() const;
+  void setConsumers(ConsumerManager* newConsumers);
+
+  StatisticsManager* getManager() const;
+  void setManager(StatisticsManager* newManager);
+
+  int getNumber_requests() const;
+  void setNumber_requests(int newNumber_requests);
+
+  double getProducer_time() const;
+  void setProducer_time(double newProducer_time);
+
 private:
   double consumer_time;
   double producer_time;
-  Mode mode;
   int number_requests; // TODO: RENAME
   StatisticsManager* manager;
 

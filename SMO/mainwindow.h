@@ -8,6 +8,7 @@
 
 #include "Simulator.h"
 #include "qcustomplot.h"
+#include "WaveformGenerator.h"
 #include <algorithm>
 
 QT_BEGIN_NAMESPACE
@@ -34,10 +35,14 @@ private slots:
 
   void on_startManualMode_clicked();
 
-  void start_simulation(Mode mode);
+  void start_simulation();
 
+  void on_clear_sim_button_clicked();
 
 private:
   Ui::MainWindow *ui;
+  // std::unique_ptr
+  Simulator* simulator;
+  WaveformGenerator* wg;
 };
 #endif // MAINWINDOW_H
