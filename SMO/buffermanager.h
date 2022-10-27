@@ -26,7 +26,6 @@ private:
   int take_position;
   int placement_position;
 
-  void select_take_position();
   void increment_take_position();
   void increment_placement_position();
 };

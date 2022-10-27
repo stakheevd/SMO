@@ -29,7 +29,7 @@ std::vector<Request*> BufferManager::get_all_requests()
 
 void BufferManager::receive_request(Request *request)
 {
-  if (!is_full())
+  if (!is_full()) //Д1031
   {
     while (!buffers[placement_position].is_free())
     {
@@ -39,7 +39,7 @@ void BufferManager::receive_request(Request *request)
 		buffers[placement_position].receive_request(request);
 		increment_placement_position();
 	}
-  else
+  else //Д10О3
   {
     double min_time = std::numeric_limits<double>::max();
 
@@ -88,7 +88,8 @@ bool BufferManager::is_empty()
 
 Request *BufferManager::submit_request()
 {
-  select_take_position();
+  while (buffers[take_position].is_free())
+    increment_take_position();
 
   Request* request = buffers[take_position].send_request();
   increment_take_position();
@@ -96,34 +97,12 @@ Request *BufferManager::submit_request()
   return request;
 }
 
-void BufferManager::select_take_position()
-{
-	while (buffers[take_position].is_free())
-	{
-    increment_take_position();
-	}
-}
-
 void BufferManager::increment_placement_position()
 {
-  if (placement_position + 1 == (int)buffers.size())
-	{
-		placement_position = 0;
-	}
-	else
-	{
-		placement_position ++;
-	}
+  placement_position = (placement_position + 1 == (int)buffers.size()) ? 0 : ++placement_position;
 }
 
 void BufferManager::increment_take_position()
 {
-  if (take_position + 1 == (int)buffers.size())
-	{
-		take_position = 0;
-	}
-	else
-	{
-		take_position++;
-	}
+  take_position = (take_position + 1 == (int)buffers.size()) ? 0 : ++take_position;
 }

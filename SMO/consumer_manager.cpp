@@ -19,11 +19,6 @@ ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumer
 std::vector<Request*> ConsumerManager::get_all_requests()
 {
 	std::vector<Request*> received_requests;
-	// TODO: Сделать for each через auto
-  //for (int i = 0; i < consumers.size(); i++)
-  //{
-  //	received_requests.push_back(consumers[i].get_current_request());
-  //}
 
   for (auto req : consumers)
   {
