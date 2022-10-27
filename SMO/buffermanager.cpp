@@ -1,49 +1,43 @@
 #include "buffermanager.h"
 
-BufferManager::BufferManager(ConsumerManager* c_manager, StatisticsManager* s_manager, int number_buffers)
+BufferManager::BufferManager(ConsumerManager* c_manager, StatisticsManager* s_manager, int number_buffers):
+  buffers{},
+  st_manager(s_manager),
+  con_manager(c_manager),
+  take_position(0),
+  placement_position(0)
 {
-	buffers = std::vector<Buffer>();
-
 	for (int i = 0; i < number_buffers; i++)
 	{
     buffers.push_back(Buffer(i));
 	}
-
-	st_manager = s_manager;
-	con_manager = c_manager;
-	take_position = 0;
-	placement_position = 0;
 }
 
 std::vector<Request*> BufferManager::get_all_requests()
 {
   std::vector<Request*> buffered_requests;
 
-  for (size_t i = 0; i < buffers.size(); i++)
-  {
-    buffered_requests.push_back(buffers[i].get_buffered_request());
-  }
+  for (auto buf : buffers)
+    buffered_requests.push_back(buf.get_buffered_request());
 
   return buffered_requests;
 }
 
 void BufferManager::receive_request(Request *request)
 {
-  if (!is_full()) //Д1031
+  if (!is_full())  //Д1031
   {
     while (!buffers[placement_position].is_free())
-    {
       increment_placement_position();
-    }
 
 		buffers[placement_position].receive_request(request);
 		increment_placement_position();
 	}
-  else //Д10О3
+  else  //Д10О3
   {
     double min_time = std::numeric_limits<double>::max();
-
     int ind = 0;
+
     for (size_t i = 0; i < buffers.size(); i++)
     {
       if (!buffers[i].is_free())
