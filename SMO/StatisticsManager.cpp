@@ -8,7 +8,7 @@ StatisticsManager::StatisticsManager(int number_producers, int number_consumers)
 
 	for (int i = 0; i < number_producers; i++)
 	{
-		statistics.push_back(ProducerLogger());
+    statistics.push_back(Loggers());
 		}
 }
 

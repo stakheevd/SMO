@@ -1,14 +1,14 @@
-#ifndef PRODUCERLOGGER_H
-#define PRODUCERLOGGER_H
+#ifndef LOGGERS_H
+#define LOGGERS_H
 
 #include <cmath>
 
 #include "request.h"
 
-class ProducerLogger
+class Loggers
 {
 public:
-	ProducerLogger();
+  Loggers();
 
 	double get_probability_rejection() const;
 	double get_average_elapsed_time() const;
@@ -50,4 +50,4 @@ private:
   double squared_processing_time;
 };
 
-#endif // PRODUCERLOGGER_H
+#endif // LOGGERS_H

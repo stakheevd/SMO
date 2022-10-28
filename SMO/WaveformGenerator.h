@@ -14,10 +14,6 @@ public:
   WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepData* init_state, QWidget* parent = 0);
   // TODO: Зачем наследуемся от QGraphicsView?
 
-  // **************
-  // TODO: Добавить прошедшее время с начала симуляции
-  // **************
-
   void take_step(StepData* step);
 
   QGraphicsScene* get_plot() const;
@@ -48,7 +44,7 @@ private:
   QGraphicsTextItem* add_time_label(double x, double y, double timestamp);
 
   void make_step_lines(std::vector<QGraphicsItemGroup*>& lines, const std::vector<Request*>& previous,
-                         const std::vector<Request*>& current, double start_x, double& start_y, double end_x, double time);
+                         const std::vector<Request*>& current, double start_x, double& start_y, double end_x, double time, bool is_producer);
   // TODO: Line_holder?? What is it?
   void create_input_data_lines(const int number, double& offset, std::vector<QGraphicsItemGroup*>& line_holder, const std::string& label);
 };

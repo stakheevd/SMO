@@ -56,7 +56,7 @@ void BufferManager::receive_request(Request *request)
   }
 }
 
-bool BufferManager::is_full()
+bool BufferManager::is_full() const
 {
 	for (auto buffer : buffers)
 	{
@@ -67,7 +67,7 @@ bool BufferManager::is_full()
 	return true;
 }
 
-bool BufferManager::is_empty()
+bool BufferManager::is_empty() const
 {
 	for (auto buf : buffers)
 		{

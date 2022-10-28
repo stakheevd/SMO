@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1515</width>
-    <height>901</height>
+    <width>1459</width>
+    <height>910</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,6 +30,11 @@ QLabel
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QTabWidget::pane
@@ -67,27 +72,56 @@ QTabBar::tab::hover
         <string>Настройки</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="font">
-           <font>
-            <family>Calibri</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Количество источников</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QSpinBox" name="number_consumers">
+        <item row="8" column="4">
+         <widget class="QSpinBox" name="buffer_size">
           <property name="value">
-           <number>6</number>
+           <number>4</number>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="8" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>280</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="5">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>160</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="6" rowspan="16">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Дисциплины и законы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Источники&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Пуассоновский закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Приборы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2.  Экспоненциальный закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Дисциплины&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Заполнение буферной памяти по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Отказ самой старой в буфере&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Выбор обслуживающих приборов по их приоритету&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;4. Выбор заявки на обслуживание из буфера по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Виды отражения результатов&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Графики по значениям параметров&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Временные диаграммы, текущее состояние&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Сводные таблицы&lt;/pre&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="4">
          <widget class="QDoubleSpinBox" name="lamb">
           <property name="maximum">
            <double>1000.000000000000000</double>
@@ -97,7 +131,43 @@ QTabBar::tab::hover
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="4">
+        <item row="4" column="4">
+         <widget class="QSpinBox" name="number_requests">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999999</number>
+          </property>
+          <property name="value">
+           <number>20000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QLabel" name="label_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Количество устройств</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="1">
          <widget class="QPushButton" name="saveConf">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -107,8 +177,9 @@ QTabBar::tab::hover
           </property>
           <property name="font">
            <font>
-            <family>Calibri</family>
+            <family>Cantarell</family>
             <pointsize>12</pointsize>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -116,42 +187,35 @@ QTabBar::tab::hover
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <family>Calibri</family>
-            <pointsize>12</pointsize>
-           </font>
+        <item row="11" column="1">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="text">
-           <string>Размер буфера</string>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
-         </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
-        <item row="1" column="1">
-         <widget class="QSpinBox" name="number_producers">
-          <property name="value">
-           <number>5</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="number_requests">
-          <property name="maximum">
-           <number>999999</number>
-          </property>
-          <property name="value">
-           <number>20000</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
+        <item row="12" column="1">
          <widget class="QLabel" name="label_7">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
-            <family>Calibri</family>
+            <family>Cantarell</family>
             <pointsize>12</pointsize>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
@@ -159,38 +223,127 @@ QTabBar::tab::hover
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QSpinBox" name="buffer_size">
+        <item row="6" column="4">
+         <widget class="QSpinBox" name="number_producers">
           <property name="value">
-           <number>4</number>
+           <number>5</number>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_4">
+        <item row="10" column="4">
+         <widget class="QSpinBox" name="number_consumers">
+          <property name="value">
+           <number>6</number>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
-            <family>Calibri</family>
+            <family>Cantarell</family>
             <pointsize>12</pointsize>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
-           <string>Количество устройств</string>
+           <string>Размер буфера</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_8">
+        <item row="7" column="1">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="font">
            <font>
-            <family>Calibri</family>
+            <family>Cantarell</family>
             <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Количество источников      </string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
            </font>
           </property>
           <property name="text">
            <string>Количество заявок</string>
           </property>
          </widget>
+        </item>
+        <item row="5" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="9" column="1">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -217,6 +370,12 @@ QTabBar::tab::hover
         </item>
         <item row="0" column="0">
          <widget class="QGraphicsView" name="graphicsView">
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::StrongFocus</enum>
+          </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
@@ -531,7 +690,7 @@ QTabBar::tab::hover
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1515</width>
+     <width>1459</width>
      <height>23</height>
     </rect>
    </property>

@@ -17,10 +17,10 @@ SOURCES += \
     buffermanager.cpp \
     consumer.cpp \
     consumer_manager.cpp \
+    loggers.cpp \
     main.cpp \
     mainwindow.cpp \
     producer.cpp \
-    producerlogger.cpp \
     qcustomplot.cpp \
     request.cpp
 
@@ -34,9 +34,9 @@ HEADERS += \
     buffermanager.h \
     consumer.h \
     consumer_manager.h \
+    loggers.h \
     mainwindow.h \
     producer.h \
-    producerlogger.h \
     qcustomplot.h \
     request.h
 

@@ -43,9 +43,6 @@ void MainWindow::on_saveConf_clicked()
    ui->tabWidget->widget(1)->setEnabled(true);
    ui->tabWidget->widget(2)->setEnabled(true);
 
-  ui->statusbar->setVisible(false);
-  //start_simulation(Mode::Manual);
-
   int number_requests = ui->number_requests->value();
   int number_producers = ui->number_producers->value();
   int number_consumers = ui->number_consumers->value();
@@ -62,12 +59,13 @@ void MainWindow::on_saveConf_clicked()
 void MainWindow::on_startAutoMode_clicked()
 {
    ui->statusbar->setVisible(false);
-   ui->startAutoMode->setVisible(false); //Перенести выше
+   ui->startAutoMode->setVisible(false);
    start_simulation();
 }
 
 void MainWindow::on_startManualMode_clicked()
 {
+  ui->statusbar->setVisible(false);
   simulator->take_step();
   wg->take_step(simulator->get_status());
 }

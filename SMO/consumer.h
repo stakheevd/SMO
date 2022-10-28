@@ -18,7 +18,6 @@ public:
   bool is_free() const;
 
   Request *get_current_request() const;
-  void set_current_request(Request *new_current_request);
 
 private:
   const int consumer_id;

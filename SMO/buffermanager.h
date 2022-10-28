@@ -16,8 +16,8 @@ public:
   Request* submit_request();
   void receive_request(Request* request);
 
-  bool is_full();
-  bool is_empty();
+  bool is_full() const;
+  bool is_empty() const;
 
 private:
   std::vector<Buffer> buffers;

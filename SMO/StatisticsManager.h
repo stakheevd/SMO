@@ -1,7 +1,7 @@
 #ifndef STATISTICSMANAGER_H
 #define STATISTICSMANAGER_H
 
-#include "producerlogger.h"
+#include "loggers.h"
 
 struct PivotTable
 {
@@ -28,7 +28,7 @@ public:
   PivotTable* init_pivot_table(double time);
 
 private:
-  std::vector<ProducerLogger> statistics;
+  std::vector<Loggers> statistics;
   std::vector<double> consumer_working_time;
 };
 

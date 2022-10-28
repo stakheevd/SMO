@@ -38,9 +38,9 @@ void WaveformGenerator::take_step(StepData* step)
 
   double current_y = 2 * LINE_SPACING_BETWEEN_LINES - 32;
 
-  make_step_lines(producers_lines, previous->getProducer_data(), step->getProducer_data(), start_x, current_y, end_x, step->get_timestamp());
-  make_step_lines(buffers_lines, previous->getBuffer_data(), step->getBuffer_data(), start_x, current_y, end_x, step->get_timestamp());
-  make_step_lines(consumers_lines, previous->getConsumer_data(), step->getConsumer_data(), start_x, current_y, end_x, step->get_timestamp());
+  make_step_lines(producers_lines, previous->getProducer_data(), step->getProducer_data(), start_x, current_y, end_x, step->get_timestamp(), true);
+  make_step_lines(buffers_lines, previous->getBuffer_data(), step->getBuffer_data(), start_x, current_y, end_x, step->get_timestamp(), false);
+  make_step_lines(consumers_lines, previous->getConsumer_data(), step->getConsumer_data(), start_x, current_y, end_x, step->get_timestamp(), false);
 
   reject_requests_line->addToGroup(draw_line(start_x, current_y, end_x, current_y));
 
@@ -109,26 +109,47 @@ QGraphicsTextItem* WaveformGenerator::add_time_label(double x, double y, double 
   return time_label;
 }
 
-void WaveformGenerator::make_step_lines(std::vector<QGraphicsItemGroup*>& lines, const std::vector<Request*>& previous, const std::vector<Request*>& current, double start_x, double& start_y, double end_x, double time)
+void WaveformGenerator::make_step_lines(std::vector<QGraphicsItemGroup*>& lines, const std::vector<Request*>& previous, const std::vector<Request*>& current, double start_x, double& start_y, double end_x, double time, bool is_producer)
 {
   for (size_t i = 0; i < lines.size(); i++)
   {
-    double offset_y = ((previous[i] != nullptr) ? -10 : 0); //TODO: Delete brakets
+    double offset_y = (previous[i] != nullptr) ? -10 : 0;
 
     if (previous[i] != current[i])
     {
-      lines[i]->addToGroup(draw_line(end_x, start_y, end_x, start_y - 10));
+      if (!is_producer || !(time == 0))
+      {
+        lines[i]->addToGroup(draw_line(end_x, start_y, end_x, start_y - 10)); // рисуем линию вверх
+      }
+      else
+      {
+      }
       // ***** Добавить timestamp'ы на спад сигнала
       //lines[i]->addToGroup(add_time_label(end_x, start_y, time));
 
-      if (current[i] != nullptr)
+      if (current[i] != nullptr && time != 0)
       {
-        lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), current[i]->getId()));
+        if (is_producer)
+        {
+          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), previous[i]->getId()));
+        }
+        else
+        {
+          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), current[i]->getId()));
+        }
+
         lines[i]->addToGroup(add_time_label(end_x, start_y, time));
       }
     }
 
-    lines[i]->addToGroup(draw_line(start_x, start_y + offset_y, end_x, start_y + offset_y));
+    if (is_producer)
+    {
+      lines[i]->addToGroup(draw_line(start_x, start_y, end_x, start_y));
+    }
+    else
+    {
+      lines[i]->addToGroup(draw_line(start_x, start_y + offset_y, end_x, start_y + offset_y));
+    }
 
     start_y += LINE_SPACING_BETWEEN_LINES;
   }

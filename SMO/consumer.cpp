@@ -12,11 +12,9 @@ Consumer::Consumer(int cons_id, double lamb):
 void Consumer::receive_request(Request* req)
 {
   std::mt19937_64 rng;
-  // initialize the random number generator with time-dependent seed
   uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
   std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed>>32)};
   rng.seed(ss);
-  // initialize a uniform distribution between 0 and 1
   std::uniform_real_distribution<double> unif(0, 1);
 
   double delta_t = -(1.0 / (double)lambda) * std::log(unif(rng));
@@ -52,11 +50,3 @@ Request *Consumer::get_current_request() const
 {
   return current_request;
 }
-
-void Consumer::set_current_request(Request *new_current_request)
-{
-  current_request = new_current_request;
-}
-  //std::srand((unsigned)time(NULL));
-
-                             //- ((1 / lambda) * std::log(1 - ((double)rand() / RAND_MAX))));
