@@ -19,7 +19,14 @@ double Loggers::get_probability_rejection() const
 
 double Loggers::get_average_elapsed_time() const
 {
-  return (elapsed_time / (double)released_number_requests);
+  if (released_number_requests != 0)
+  {
+    return (elapsed_time / (double)released_number_requests);
+  }
+  else
+  {
+    return 0;
+  }
 }
 
 double Loggers::get_average_processing_time() const

@@ -22,7 +22,7 @@ std::vector<Request*> ProducerManager::get_all_requests()
 
 	for (int i = 0; i < producers.size(); i++)
 	{
-    vec_requests.push_back(producers[i].stored_request);
+    vec_requests.push_back(producers[i].get_stored_request());
 	}
 
 	return vec_requests;
