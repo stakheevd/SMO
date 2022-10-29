@@ -19,28 +19,28 @@ double Loggers::get_probability_rejection() const
 
 double Loggers::get_average_elapsed_time() const
 {
-  return ((double)elapsed_time / released_number_requests);
+  return (elapsed_time / (double)released_number_requests);
 }
 
 double Loggers::get_average_processing_time() const
 {
-  return ((double)processing_time / released_number_requests);
+  return (processing_time / (double)released_number_requests);
 }
 
 double Loggers::get_average_waiting_time() const
 {
-  return ((double)waiting_time / released_number_requests);
+  return (waiting_time / (double)released_number_requests);
 }
 
 double Loggers::get_dispersion_waiting_time() const
 {
-  return (((double)squared_waiting_time / released_number_requests)
+  return ((squared_waiting_time / (double)released_number_requests)
           - std::pow(get_average_waiting_time(), 2));
 }
 
 double Loggers::get_dispersion_processing_time() const
 {
-  return (((double)squared_processing_time / released_number_requests)
+  return ((squared_processing_time / (double)released_number_requests)
           - std::pow(get_average_processing_time(), 2));
 }
 
@@ -54,7 +54,7 @@ void Loggers::log_received_request(Request* request)
 	waiting_time += request->get_receiving_time() - request->get_creation_time();
 	squared_waiting_time += std::pow(request->get_receiving_time() - request->get_creation_time(), 2);
 
-  elapsed_time += request->get_receiving_time() - request->get_creation_time(); // Сколько было в буфере
+  elapsed_time += request->get_receiving_time() - request->get_creation_time();
 }
 
 void Loggers::log_released_request(Request* request)
@@ -64,8 +64,7 @@ void Loggers::log_released_request(Request* request)
 	processing_time += request->get_release_time() - request->get_receiving_time();
 	squared_processing_time += std::pow(request->get_release_time() - request->get_receiving_time(), 2);
 
-  elapsed_time += (request->get_release_time() - request->get_receiving_time()); // Сколько обрабатывалось
-  //elapsed_time += (request->get_release_time() - request->get_creation_time());
+  elapsed_time += (request->get_release_time() - request->get_receiving_time());
 }
 
 void Loggers::log_rejected_request()
