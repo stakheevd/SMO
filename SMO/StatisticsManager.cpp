@@ -29,9 +29,9 @@ void StatisticsManager::log_released_request(Request *request, int cons_id)
 	consumer_working_time[cons_id] += request->get_release_time() - request->get_receiving_time();
 }
 
-void StatisticsManager::log_rejected_request(Request *request, double time)
+void StatisticsManager::log_rejected_request(Request *request)
 {
-	statistics[request->get_producer_id() - 1].log_rejected_request(request, time);
+  statistics[request->get_producer_id() - 1].log_rejected_request();
 }
 
 PivotTable* StatisticsManager::init_pivot_table(double time)

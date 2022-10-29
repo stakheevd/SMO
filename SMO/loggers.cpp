@@ -53,6 +53,8 @@ void Loggers::log_received_request(Request* request)
 {
 	waiting_time += request->get_receiving_time() - request->get_creation_time();
 	squared_waiting_time += std::pow(request->get_receiving_time() - request->get_creation_time(), 2);
+
+  elapsed_time += request->get_receiving_time() - request->get_creation_time(); // Сколько было в буфере
 }
 
 void Loggers::log_released_request(Request* request)
@@ -62,14 +64,13 @@ void Loggers::log_released_request(Request* request)
 	processing_time += request->get_release_time() - request->get_receiving_time();
 	squared_processing_time += std::pow(request->get_release_time() - request->get_receiving_time(), 2);
 
-  elapsed_time += (request->get_release_time() - request->get_creation_time());
+  elapsed_time += (request->get_release_time() - request->get_receiving_time()); // Сколько обрабатывалось
+  //elapsed_time += (request->get_release_time() - request->get_creation_time());
 }
 
-void Loggers::log_rejected_request(Request* request, double elaps_time)
+void Loggers::log_rejected_request()
 {
 	rejected_number_requests++;
-
-  elapsed_time += elaps_time - request->get_creation_time();
 }
 
 int Loggers::get_total_number_requests() const

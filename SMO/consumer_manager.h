@@ -10,22 +10,22 @@ class ConsumerManager
 {
 public:
   ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb);
-  std::vector<Request*> get_all_requests();
+  std::vector<Request*> get_all_requests() const;
 
   void release_consumer();
-  bool can_receive_request();
   void receive_request(Request* request);
-  const std::vector<Consumer> &get_consumers() const;
 
-  double get_next_event_time() const;
-  bool is_empty();
+  const std::vector<Consumer> &get_consumers() const;
+  bool can_receive_request() const;
+  double get_releasing_consumer_time() const;
+  bool is_empty() const;
 
 private:
 	std::vector<Consumer> consumers;
 	StatisticsManager* st_manager;
   int releasing_consumer_id;
-	int current_position;
-	double next_event_time;
+  double releasing_consumer_time;
+
   void select_releasing_consumer();
 };
 

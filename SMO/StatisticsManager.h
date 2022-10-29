@@ -23,7 +23,7 @@ public:
 	void request_created(Request* request);
   void log_received_request(Request* request);
 	void log_released_request(Request* request, int cons_id);
-	void log_rejected_request(Request* request, double time);
+  void log_rejected_request(Request* request);
 
   PivotTable* init_pivot_table(double time);
 

@@ -4,15 +4,14 @@
 #include <limits>
 
 #include "buffer.h"
-#include "consumer_manager.h"
 #include "StatisticsManager.h"
 
 class BufferManager
 {
 public:
-  BufferManager(ConsumerManager* c_manager, StatisticsManager* s_manager, int number_buffers);
+  BufferManager(StatisticsManager* s_manager, int number_buffers);
 
-  std::vector<Request*> get_all_requests();
+  std::vector<Request*> get_all_requests() const;
   Request* submit_request();
   void receive_request(Request* request);
 
@@ -22,7 +21,6 @@ public:
 private:
   std::vector<Buffer> buffers;
   StatisticsManager* st_manager;
-  ConsumerManager* con_manager;
   int take_position;
   int placement_position;
 

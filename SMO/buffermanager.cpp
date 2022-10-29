@@ -1,9 +1,8 @@
 #include "buffermanager.h"
 
-BufferManager::BufferManager(ConsumerManager* c_manager, StatisticsManager* s_manager, int number_buffers):
+BufferManager::BufferManager(StatisticsManager* s_manager, int number_buffers):
   buffers{},
   st_manager(s_manager),
-  con_manager(c_manager),
   take_position(0),
   placement_position(0)
 {
@@ -13,7 +12,7 @@ BufferManager::BufferManager(ConsumerManager* c_manager, StatisticsManager* s_ma
 	}
 }
 
-std::vector<Request*> BufferManager::get_all_requests()
+std::vector<Request*> BufferManager::get_all_requests() const
 {
   std::vector<Request*> buffered_requests;
 
@@ -50,7 +49,7 @@ void BufferManager::receive_request(Request *request)
       }
     }
 
-    st_manager->log_rejected_request(request, request->get_creation_time());
+    st_manager->log_rejected_request(request);
 
     buffers[ind].receive_request(request);
   }
@@ -81,7 +80,7 @@ bool BufferManager::is_empty() const
 }
 
 Request *BufferManager::submit_request()
-{
+{  //Д2Б3
   while (buffers[take_position].is_free())
     increment_take_position();
 

@@ -2,8 +2,7 @@
 
 ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb):
   consumers{},
-  st_manager(manager),
-  current_position(0)
+  st_manager(manager)
 {
 	for (int i = 0; i < number_consumers; i++)
 	{
@@ -14,14 +13,12 @@ ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumer
 }
 
 
-std::vector<Request*> ConsumerManager::get_all_requests()
+std::vector<Request*> ConsumerManager::get_all_requests() const
 {
 	std::vector<Request*> received_requests;
 
-  for (auto req : consumers)
-  {
-    received_requests.push_back(req.get_current_request());
-  }
+  for (const auto& con : consumers)
+    received_requests.push_back(con.get_current_request());
 
 	return received_requests;
 }
@@ -35,7 +32,7 @@ void ConsumerManager::release_consumer()
   select_releasing_consumer();
 }
 
-bool ConsumerManager::can_receive_request()
+bool ConsumerManager::can_receive_request() const
 {
 	for (const auto& consumer : consumers)
 	{
@@ -67,20 +64,21 @@ const std::vector<Consumer> &ConsumerManager::get_consumers() const
 	return consumers;
 }
 
-double ConsumerManager::get_next_event_time() const
+double ConsumerManager::get_releasing_consumer_time() const
 {
-	return next_event_time;
+  return releasing_consumer_time;
 }
 
-bool ConsumerManager::is_empty()
+bool ConsumerManager::is_empty() const
 {
   for (const auto& con : consumers)
-		{
-			if (!con.is_free())
-				{
-					return false;
-				}
-		}
+  {
+    if (!con.is_free())
+    {
+      return false;
+    }
+  }
+
 	return true;
 }
 
@@ -100,5 +98,5 @@ void ConsumerManager::select_releasing_consumer()
 				}
 		}
 
-	next_event_time = min_time;
+  releasing_consumer_time = min_time;
 }

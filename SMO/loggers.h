@@ -20,7 +20,7 @@ public:
 	void request_created();
   void log_received_request(Request* request);
 	void log_released_request(Request* request);
-	void log_rejected_request(Request* request, double elaps_time);
+  void log_rejected_request();
 
   int get_total_number_requests() const;
 

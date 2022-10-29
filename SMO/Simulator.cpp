@@ -10,7 +10,7 @@ Simulator::Simulator(int num_requests, int num_prod, int num_buf, int num_cons, 
 
   manager = new StatisticsManager(num_prod, num_cons);
   consumers = new ConsumerManager(manager, num_cons, lamb);
-  buffers = new BufferManager(consumers, manager, num_buf);
+  buffers = new BufferManager(manager, num_buf);
   producers = new ProducerManager(manager, num_prod, lamb);
 }
 
@@ -25,7 +25,7 @@ StepData *Simulator::get_status()
 
 void Simulator::take_step()
 {
-	consumer_time = consumers->get_next_event_time();
+  consumer_time = consumers->get_releasing_consumer_time();
 	producer_time = producers->get_next_event_time();
 
 	if (consumer_time <= producer_time)
@@ -61,7 +61,7 @@ void Simulator::run_full_simulation()
 	while (producers->get_released_requests() < number_requests)
 	{
 		producer_time = producers->get_next_event_time();
-		consumer_time = consumers->get_next_event_time();
+    consumer_time = consumers->get_releasing_consumer_time();
 
 		if (consumer_time <= producer_time)
 		{
@@ -90,7 +90,7 @@ void Simulator::run_full_simulation()
 		if (!consumers->is_empty())
 		{
 			//producer_time = producers->get_next_event_time();
-			consumer_time = consumers->get_next_event_time();
+      consumer_time = consumers->get_releasing_consumer_time();
 
 			consumers->release_consumer();
 		}
