@@ -1,96 +1,69 @@
 #include "ProducerManager.h"
 
-ProducerManager::ProducerManager(StatisticsManager* manager, int num_prod, double lamb)
+ProducerManager::ProducerManager(StatisticsManager* manager, int num_prod, double lamb):
+  producers{},
+  st_manager(manager),
+  number_released_requests(0)
 {
-	producers = std::vector<Producer>();
-	st_manager = manager; // TODO: list_init
-	released_requests = 0;
-
 	for (int i = 0; i < num_prod; i++)
 	{
-    std::srand((unsigned)time(NULL));
     producers.push_back(Producer(i+1, lamb));
 	}
 
-	// Choose min request
-	init_next_event_time();
+  select_creating_producer();
 }
 
-std::vector<Request*> ProducerManager::get_all_requests()
+std::vector<Request*> ProducerManager::get_all_requests() const
 {
 	std::vector<Request*> vec_requests;
 
-	for (int i = 0; i < producers.size(); i++)
-	{
-    vec_requests.push_back(producers[i].get_stored_request());
-	}
+  for (const auto& prod : producers)
+    vec_requests.push_back(prod.get_stored_request());
 
 	return vec_requests;
 }
 
 Request* ProducerManager::submit_request()
 {
-	Request* submitted_request = producers[producer_id].send_request();
+  Request* submitted_request = producers[creating_producer_id].send_request();
 
-	init_next_event_time();
+  select_creating_producer();
 
 	st_manager->request_created(submitted_request);
-	released_requests++;
+  number_released_requests++;
 
 	return submitted_request;
 }
 
-double ProducerManager::get_next_event_time() const
+double ProducerManager::get_creating_producer_time() const
 {
-  return next_event_time;
+  return creating_producer_time;
 }
 
-void ProducerManager::set_next_event_time(double new_next_event_time)
+int ProducerManager::get_number_released_requests() const
 {
-  next_event_time = new_next_event_time;
+  return number_released_requests;
 }
 
-int ProducerManager::get_released_requests() const
-{
-  return released_requests;
-}
-
-void ProducerManager::set_released_requests(int new_released_requests)
-{
-  released_requests = new_released_requests;
-}
-
-const std::vector<Producer>& ProducerManager::getProducers() const
+const std::vector<Producer>& ProducerManager::get_producers() const
 {
   return producers;
 }
 
-void ProducerManager::init_next_event_time()
+void ProducerManager::select_creating_producer()
 {
 	double min_time = producers[0].get_stored_request()->get_creation_time();
-	int prod_id = 0;
+  int prod_id = 0;
 
-	for (int i = 1; i < producers.size(); i++)
+  for (size_t i = 1; i < producers.size(); i++)
 	{
 		if (producers[i].get_stored_request()->get_creation_time() < min_time)
 		{
 			min_time = producers[i].get_stored_request()->get_creation_time();
-			prod_id = i;
+      prod_id = i;
 		}
 	}
 
-	next_event_time = min_time;
-	producer_id = prod_id;
+  creating_producer_time = min_time;
+  creating_producer_id = prod_id;
 }
-
-//void ProducerManager::insert_request(Request req)
-//{
-  // TODO: Вставка по кольцу
-//}
-
-//Request production_manager::emplace_request(Request req)
-//{
-//  Request deleted_request;
-  // Удаление самой старой (меньше всех alive_time) и вставка на её место
-//  return deleted_request;
-//}

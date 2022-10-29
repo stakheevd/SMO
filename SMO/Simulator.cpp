@@ -26,7 +26,7 @@ StepData *Simulator::get_status()
 void Simulator::take_step()
 {
   consumer_time = consumers->get_releasing_consumer_time();
-	producer_time = producers->get_next_event_time();
+	producer_time = producers->get_creating_producer_time();
 
 	if (consumer_time <= producer_time)
 	{
@@ -58,9 +58,9 @@ PivotTable *Simulator::get_pivot_table()
 
 void Simulator::run_full_simulation()
 {
-	while (producers->get_released_requests() < number_requests)
+  while (producers->get_number_released_requests() < number_requests)
 	{
-		producer_time = producers->get_next_event_time();
+		producer_time = producers->get_creating_producer_time();
     consumer_time = consumers->get_releasing_consumer_time();
 
 		if (consumer_time <= producer_time)

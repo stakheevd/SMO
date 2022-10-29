@@ -10,28 +10,21 @@ class ProducerManager
 public:
   ProducerManager(StatisticsManager* manager, int num_prod, double lamb);
 
-  //void insert_request(Request req);
-//  Request emplace_request(Request req);
+  Request* submit_request();
 
-	std::vector<Request*> get_all_requests();
-	Request* submit_request(); //nextEmit
-
-  double get_next_event_time() const;
-  void set_next_event_time(double new_next_event_time);
-
-  int get_released_requests() const;
-  void set_released_requests(int new_released_requests);
-
-  const std::vector<Producer>& getProducers() const;
+  double get_creating_producer_time() const;
+  int get_number_released_requests() const;
+  const std::vector<Producer>& get_producers() const;
+  std::vector<Request*> get_all_requests() const;
 
 private:
-  std::vector<Producer> producers; // TODO: MB pointer?
+  std::vector<Producer> producers;
   StatisticsManager* st_manager;
-  int producer_id; //indexOfSourceToEmit
-  int released_requests;
-  double next_event_time;
+  int creating_producer_id;
+  int number_released_requests;
+  double creating_producer_time;
 
-  void init_next_event_time(); //init_next_submit_time
+  void select_creating_producer();
 };
 
 #endif // PRODUCERMANAGER_H

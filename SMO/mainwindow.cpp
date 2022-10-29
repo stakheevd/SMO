@@ -220,10 +220,10 @@ void MainWindow::start_simulation()
   QTableWidget* main_table = ui->tableWidget;
   QTableWidget* us_table = ui->tableWidget_2;
 
-  main_table->setRowCount(simulator->getProducers()->getProducers().size());
+  main_table->setRowCount(simulator->getProducers()->get_producers().size());
   us_table->setRowCount(simulator->getConsumers()->get_consumers().size());
 
-  for (size_t i = 0; i < simulator->getProducers()->getProducers().size(); i++)
+  for (size_t i = 0; i < simulator->getProducers()->get_producers().size(); i++)
   {
     main_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     main_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->number_requests[i])));
