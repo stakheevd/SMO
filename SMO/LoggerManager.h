@@ -25,7 +25,7 @@ public:
 	void log_released_request(Request* request, int cons_id);
   void log_rejected_request(Request* request);
 
-  PivotTable* init_pivot_table(double time);
+  PivotTable* init_pivot_table(double total_simulation_time);
 
   void setStatistics(const std::vector<Logger>& newStatistics);
 

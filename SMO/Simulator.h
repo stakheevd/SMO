@@ -15,45 +15,25 @@
 class Simulator
 {
 public:
-  Simulator(int num_requests, int num_prod, int num_buf, int num_cons, double lamb);
+  Simulator(int num_requests, int num_prod,
+              int num_buf, int num_cons, double lamb);
 
-  StepData* get_status(); // TODO: Rename??
   void take_step();
   PivotTable* get_pivot_table();
   void run_full_simulation();
 
-
-
-  ProducerManager* getProducers() const;
-  void setProducers(ProducerManager* newProducers);
-
-  double getConsumer_time() const;
-  void setConsumer_time(double newConsumer_time);
-
-  BufferManager* getBuffers() const;
-  void setBuffers(BufferManager* newBuffers);
-
-  ConsumerManager* getConsumers() const;
-  void setConsumers(ConsumerManager* newConsumers);
-
-  LoggerManager* getManager() const;
-  void setManager(LoggerManager* newManager);
-
-  int getNumber_requests() const;
-  void setNumber_requests(int newNumber_requests);
-
-  double getProducer_time() const;
-  void setProducer_time(double newProducer_time);
+  StepStatus* get_step_status();
+  double get_releasing_consumer_time() const;
 
 private:
-  double consumer_time;
-  double producer_time;
-  int number_requests; // TODO: RENAME
-  LoggerManager* manager;
-
+  LoggerManager* loggers;
   ConsumerManager* consumers;
   BufferManager* buffers;
   ProducerManager* producers;
+
+  double releasing_consumer_time;
+  double creating_producer_time;
+  int number_requests;
 };
 
 #endif // SIMULATOR_H

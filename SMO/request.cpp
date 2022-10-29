@@ -44,7 +44,7 @@ int Request::get_id() const
   return id;
 }
 
-StepData::StepData(const std::vector<Request*>& prod_requests, const std::vector<Request*>& buf_requests,
+StepStatus::StepStatus(const std::vector<Request*>& prod_requests, const std::vector<Request*>& buf_requests,
                      const std::vector<Request*>& cons_requests, const double e_time):
   producers_requests(prod_requests),
   buffers_requests(buf_requests),
@@ -53,22 +53,22 @@ StepData::StepData(const std::vector<Request*>& prod_requests, const std::vector
 {
 }
 
-double StepData::get_elapsed_simulation_time() const
+double StepStatus::get_elapsed_simulation_time() const
 {
   return elapsed_simulation_time;
 }
 
-const std::vector<Request*>& StepData::get_producers_requests() const
+const std::vector<Request*>& StepStatus::get_producers_requests() const
 {
   return producers_requests;
 }
 
-const std::vector<Request*>& StepData::get_buffers_requests() const
+const std::vector<Request*>& StepStatus::get_buffers_requests() const
 {
   return buffers_requests;
 }
 
-const std::vector<Request*>& StepData::get_consumers_requests() const
+const std::vector<Request*>& StepStatus::get_consumers_requests() const
 {
   return consumers_requests;
 }

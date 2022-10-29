@@ -26,10 +26,10 @@ private:
   double release_time;
 };
 
-class StepData
+class StepStatus
 {
 public:
-  StepData(const std::vector<Request*>& prod_requests, const std::vector<Request*>& buf_requests,
+  StepStatus(const std::vector<Request*>& prod_requests, const std::vector<Request*>& buf_requests,
              const std::vector<Request*>& cons_requests, const double e_time);
 
   double get_elapsed_simulation_time() const;

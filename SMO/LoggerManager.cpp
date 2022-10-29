@@ -29,7 +29,7 @@ void LoggerManager::log_rejected_request(Request *request)
   loggers[request->get_producer_id() - 1].log_rejected_request();
 }
 
-PivotTable* LoggerManager::init_pivot_table(double time)
+PivotTable* LoggerManager::init_pivot_table(double total_simulation_tile)
 {
 	PivotTable* table = new PivotTable();
 
@@ -46,7 +46,7 @@ PivotTable* LoggerManager::init_pivot_table(double time)
 
   for (const auto& cons_time : consumer_working_time)
 	{
-		table->usage_ratio.push_back(cons_time / time);
+    table->usage_ratio.push_back(cons_time / total_simulation_tile);
 	}
 
   return table;

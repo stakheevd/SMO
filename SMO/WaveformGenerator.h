@@ -11,10 +11,10 @@
 class WaveformGenerator : public QGraphicsView
 {
 public:
-  WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepData* init_state, QWidget* parent = 0);
+  WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepStatus* init_state, QWidget* parent = 0);
   // TODO: Зачем наследуемся от QGraphicsView?
 
-  void take_step(StepData* step);
+  void take_step(StepStatus* step);
 
   QGraphicsScene* get_plot() const;
   void set_plot(QGraphicsScene* new_plot);
@@ -23,7 +23,7 @@ public:
   void set_producers_lines(const std::vector<QGraphicsItemGroup*>& new_producers_lines);
 
 private:
-  StepData* previous = nullptr;
+  StepStatus* previous = nullptr;
 
   QGraphicsScene* plot;
 

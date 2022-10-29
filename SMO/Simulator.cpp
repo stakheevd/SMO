@@ -1,176 +1,71 @@
 #include "Simulator.h"
 
-Simulator::Simulator(int num_requests, int num_prod, int num_buf, int num_cons, double lamb)
+Simulator::Simulator(int num_requests, int num_prod,
+                       int num_buf, int num_cons, double lamb):
+  releasing_consumer_time(0),
+  creating_producer_time(0),
+  number_requests(num_requests)
 {
-  std::srand((unsigned)time(NULL)); // TODO: Make init_list?
-
-  consumer_time = 0;
-  producer_time = 0;
-  number_requests = num_requests;
-
-  manager = new LoggerManager(num_prod, num_cons);
-  consumers = new ConsumerManager(manager, num_cons, lamb);
-  buffers = new BufferManager(manager, num_buf);
-  producers = new ProducerManager(manager, num_prod, lamb);
+  loggers = new LoggerManager(num_prod, num_cons);
+  consumers = new ConsumerManager(loggers, num_cons, lamb);
+  buffers = new BufferManager(loggers, num_buf);
+  producers = new ProducerManager(loggers, num_prod, lamb);
 }
 
-StepData *Simulator::get_status()
+StepStatus *Simulator::get_step_status()
 {
-  return new StepData(
+  return new StepStatus(
         producers->get_all_requests(),
         buffers->get_all_requests(),
         consumers->get_all_requests(),
-        std::min(consumer_time, producer_time));
+        std::min(releasing_consumer_time, creating_producer_time));
 }
 
 void Simulator::take_step()
 {
-  consumer_time = consumers->get_releasing_consumer_time();
-	producer_time = producers->get_creating_producer_time();
+  releasing_consumer_time = consumers->get_releasing_consumer_time();
+  creating_producer_time = producers->get_creating_producer_time();
 
-	if (consumer_time <= producer_time)
+  if (releasing_consumer_time <= creating_producer_time)
 	{
 		consumers->release_consumer();
 
-		// Check, there are requests in buffer
     if (!buffers->is_empty())
-		{
-			consumers->receive_request(buffers->submit_request());
-		}
+      consumers->receive_request(buffers->submit_request());
 	}
 	else
 	{
 		buffers->receive_request(producers->submit_request());
 
-		if (consumers->can_receive_request())
-		{
-			Request* temp_request = buffers->submit_request();
-			// TODO: REFACTOR???
-			consumers->receive_request(temp_request);
-		}
+    if (consumers->can_receive_request())
+      consumers->receive_request(buffers->submit_request());
 	}
 }
 
 PivotTable *Simulator::get_pivot_table()
 {
-	return manager->init_pivot_table(consumer_time);
+  return loggers->init_pivot_table(releasing_consumer_time);
 }
 
 void Simulator::run_full_simulation()
 {
   while (producers->get_number_released_requests() < number_requests)
+    take_step();
+
+  while (!buffers->is_empty() || !consumers->is_empty())
 	{
-		producer_time = producers->get_creating_producer_time();
-    consumer_time = consumers->get_releasing_consumer_time();
-
-		if (consumer_time <= producer_time)
-		{
-			consumers->release_consumer();
-
-			// Check, there are requests in buffer
-      if (!buffers->is_empty()) // Эта проверка работает? И правильно ли увеличивается время?
-			{ // HERE!!!
-				consumers->receive_request(buffers->submit_request());
-			}
-		}
-		else
-		{
-			buffers->receive_request(producers->submit_request());
-
-			if (consumers->can_receive_request())
-			{
-				consumers->receive_request(buffers->submit_request());
-			}
-		}
-	}
-
-	while (!buffers->is_empty() || !consumers->is_empty()) //Refactor: is_empty can_submit
-	{
-
 		if (!consumers->is_empty())
 		{
-			//producer_time = producers->get_next_event_time();
-      consumer_time = consumers->get_releasing_consumer_time();
-
+      releasing_consumer_time = consumers->get_releasing_consumer_time();
 			consumers->release_consumer();
 		}
 
-		// Check, there are requests in buffer
-    if (!buffers->is_empty()) // Эта проверка работает? И правильно ли увеличивается время?
-		{ // HERE!!!
-			consumers->receive_request(buffers->submit_request());
-		}
-
+    if (!buffers->is_empty())
+      consumers->receive_request(buffers->submit_request());
   }
 }
 
-// TODO: Rename
-ProducerManager* Simulator::getProducers() const
+double Simulator::get_releasing_consumer_time() const
 {
-  return producers;
-}
-
-void Simulator::setProducers(ProducerManager* newProducers)
-{
-  producers = newProducers;
-}
-// TODO: Rename
-double Simulator::getConsumer_time() const
-{
-  return consumer_time;
-}
-
-void Simulator::setConsumer_time(double newConsumer_time)
-{
-  consumer_time = newConsumer_time;
-}
-
-BufferManager* Simulator::getBuffers() const
-{
-  return buffers;
-}
-
-void Simulator::setBuffers(BufferManager* newBuffers)
-{
-  buffers = newBuffers;
-}
-
-ConsumerManager* Simulator::getConsumers() const
-{
-  return consumers;
-}
-
-void Simulator::setConsumers(ConsumerManager* newConsumers)
-{
-  consumers = newConsumers;
-}
-
-LoggerManager* Simulator::getManager() const
-{
-  return manager;
-}
-
-void Simulator::setManager(LoggerManager* newManager)
-{
-  manager = newManager;
-}
-
-int Simulator::getNumber_requests() const
-{
-  return number_requests;
-}
-
-void Simulator::setNumber_requests(int newNumber_requests)
-{
-  number_requests = newNumber_requests;
-}
-
-double Simulator::getProducer_time() const
-{
-  return producer_time;
-}
-
-void Simulator::setProducer_time(double newProducer_time)
-{
-  producer_time = newProducer_time;
+  return releasing_consumer_time;
 }

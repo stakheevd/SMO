@@ -51,7 +51,7 @@ void MainWindow::on_saveConf_clicked()
 
   simulator = new Simulator(number_requests, number_producers, number_buffers, number_consumers, lambda);
 
-  wg = new WaveformGenerator(number_producers, number_buffers, number_consumers, simulator->get_status());
+  wg = new WaveformGenerator(number_producers, number_buffers, number_consumers, simulator->get_step_status());
 
   ui->graphicsView->setScene(wg->get_plot());
 }
@@ -67,12 +67,12 @@ void MainWindow::on_startManualMode_clicked()
 {
   ui->statusbar->setVisible(false);
   simulator->take_step();
-  wg->take_step(simulator->get_status());
+  wg->take_step(simulator->get_step_status());
 }
 
 void MainWindow::start_simulation()
 {
-  if (simulator->getConsumer_time() > 0)
+  if (simulator->get_releasing_consumer_time() > 0)
   {
     delete simulator;
     // Проверить на утечку
@@ -220,10 +220,10 @@ void MainWindow::start_simulation()
   QTableWidget* main_table = ui->tableWidget;
   QTableWidget* us_table = ui->tableWidget_2;
 
-  main_table->setRowCount(simulator->getProducers()->get_producers().size());
-  us_table->setRowCount(simulator->getConsumers()->get_consumers().size());
+  main_table->setRowCount(ui->number_producers->value());
+  us_table->setRowCount(ui->number_consumers->value());
 
-  for (size_t i = 0; i < simulator->getProducers()->get_producers().size(); i++)
+  for (size_t i = 0; i < ui->number_producers->value(); i++)
   {
     main_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     main_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->number_requests[i])));
@@ -235,7 +235,7 @@ void MainWindow::start_simulation()
     main_table->setItem(i, 7, new QTableWidgetItem(QString::number(table->dispersion_processing_time[i])));
   }
 
-  for (size_t i = 0; i < simulator->getConsumers()->get_consumers().size(); i++)
+  for (size_t i = 0; i < ui->number_consumers->value(); i++)
   {
     us_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     us_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->usage_ratio[i])));
@@ -307,7 +307,7 @@ void MainWindow::fill_consumer_data(QVector<double> &v_n_cons, QVector<double> &
 
 void MainWindow::on_clear_sim_button_clicked()
 {
-  if (simulator->getConsumer_time() > 0)
+  if (simulator->get_releasing_consumer_time() > 0)
   {
     ui->startManualMode->setEnabled(true);
     ui->startManualMode->setText("Сделать итерацию");
@@ -323,7 +323,7 @@ void MainWindow::on_clear_sim_button_clicked()
 
     simulator = new Simulator(number_requests, number_producers, number_buffers, number_consumers, lambda);
 
-    wg = new WaveformGenerator(number_producers, number_buffers, number_consumers, simulator->get_status());
+    wg = new WaveformGenerator(number_producers, number_buffers, number_consumers, simulator->get_step_status());
 
     ui->graphicsView->setScene(wg->get_plot());
   }

@@ -1,6 +1,6 @@
 #include "WaveformGenerator.h"
 
-WaveformGenerator::WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepData* init_state, QWidget* parent):
+WaveformGenerator::WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepStatus* init_state, QWidget* parent):
   QGraphicsView(parent)
 {
   plot = new QGraphicsScene();
@@ -8,7 +8,7 @@ WaveformGenerator::WaveformGenerator(const int number_producers, const int numbe
 
   setScene(plot);
 
-  previous = new StepData(std::vector<Request*> (number_producers, nullptr),
+  previous = new StepStatus(std::vector<Request*> (number_producers, nullptr),
                           std::vector<Request*> (number_buffers, nullptr),
                           std::vector<Request*> (number_consumers, nullptr), 0);
 
@@ -31,7 +31,7 @@ WaveformGenerator::WaveformGenerator(const int number_producers, const int numbe
   take_step(init_state);
 }
 
-void WaveformGenerator::take_step(StepData* step)
+void WaveformGenerator::take_step(StepStatus* step)
 {
   double start_x = previous->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
   double end_x = step->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
