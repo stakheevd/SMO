@@ -1,6 +1,6 @@
 #include "buffermanager.h"
 
-BufferManager::BufferManager(StatisticsManager* s_manager, int number_buffers):
+BufferManager::BufferManager(LoggerManager* s_manager, int number_buffers):
   buffers{},
   st_manager(s_manager),
   take_position(0),

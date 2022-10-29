@@ -1,6 +1,6 @@
 #include "ProducerManager.h"
 
-ProducerManager::ProducerManager(StatisticsManager* manager, int num_prod, double lamb):
+ProducerManager::ProducerManager(LoggerManager* manager, int num_prod, double lamb):
   producers{},
   st_manager(manager),
   number_released_requests(0)

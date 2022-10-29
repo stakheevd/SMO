@@ -9,7 +9,7 @@
 #include "buffermanager.h"
 #include "consumer_manager.h"
 #include "ProducerManager.h"
-#include "StatisticsManager.h"
+#include "LoggerManager.h"
 
 
 class Simulator
@@ -36,8 +36,8 @@ public:
   ConsumerManager* getConsumers() const;
   void setConsumers(ConsumerManager* newConsumers);
 
-  StatisticsManager* getManager() const;
-  void setManager(StatisticsManager* newManager);
+  LoggerManager* getManager() const;
+  void setManager(LoggerManager* newManager);
 
   int getNumber_requests() const;
   void setNumber_requests(int newNumber_requests);
@@ -49,7 +49,7 @@ private:
   double consumer_time;
   double producer_time;
   int number_requests; // TODO: RENAME
-  StatisticsManager* manager;
+  LoggerManager* manager;
 
   ConsumerManager* consumers;
   BufferManager* buffers;

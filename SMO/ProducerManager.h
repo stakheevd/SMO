@@ -3,12 +3,12 @@
 
 #include "request.h"
 #include "producer.h"
-#include "StatisticsManager.h"
+#include "LoggerManager.h"
 
 class ProducerManager
 {
 public:
-  ProducerManager(StatisticsManager* manager, int num_prod, double lamb);
+  ProducerManager(LoggerManager* manager, int num_prod, double lamb);
 
   Request* submit_request();
 
@@ -19,7 +19,7 @@ public:
 
 private:
   std::vector<Producer> producers;
-  StatisticsManager* st_manager;
+  LoggerManager* st_manager;
   int creating_producer_id;
   int number_released_requests;
   double creating_producer_time;

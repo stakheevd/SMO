@@ -4,12 +4,12 @@
 #include <limits>
 
 #include "buffer.h"
-#include "StatisticsManager.h"
+#include "LoggerManager.h"
 
 class BufferManager
 {
 public:
-  BufferManager(StatisticsManager* s_manager, int number_buffers);
+  BufferManager(LoggerManager* s_manager, int number_buffers);
 
   std::vector<Request*> get_all_requests() const;
   Request* submit_request();
@@ -20,7 +20,7 @@ public:
 
 private:
   std::vector<Buffer> buffers;
-  StatisticsManager* st_manager;
+  LoggerManager* st_manager;
   int take_position;
   int placement_position;
 

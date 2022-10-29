@@ -4,12 +4,12 @@
 #include <limits>
 
 #include "consumer.h"
-#include "StatisticsManager.h"
+#include "LoggerManager.h"
 
 class ConsumerManager
 {
 public:
-  ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb);
+  ConsumerManager(LoggerManager* manager, int number_consumers, double lamb);
   std::vector<Request*> get_all_requests() const;
 
   void release_consumer();
@@ -22,7 +22,7 @@ public:
 
 private:
 	std::vector<Consumer> consumers;
-	StatisticsManager* st_manager;
+	LoggerManager* st_manager;
   int releasing_consumer_id;
   double releasing_consumer_time;
 

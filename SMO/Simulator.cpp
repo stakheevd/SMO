@@ -8,7 +8,7 @@ Simulator::Simulator(int num_requests, int num_prod, int num_buf, int num_cons, 
   producer_time = 0;
   number_requests = num_requests;
 
-  manager = new StatisticsManager(num_prod, num_cons);
+  manager = new LoggerManager(num_prod, num_cons);
   consumers = new ConsumerManager(manager, num_cons, lamb);
   buffers = new BufferManager(manager, num_buf);
   producers = new ProducerManager(manager, num_prod, lamb);
@@ -145,12 +145,12 @@ void Simulator::setConsumers(ConsumerManager* newConsumers)
   consumers = newConsumers;
 }
 
-StatisticsManager* Simulator::getManager() const
+LoggerManager* Simulator::getManager() const
 {
   return manager;
 }
 
-void Simulator::setManager(StatisticsManager* newManager)
+void Simulator::setManager(LoggerManager* newManager)
 {
   manager = newManager;
 }

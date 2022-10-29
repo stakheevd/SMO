@@ -9,15 +9,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    LoggerManager.cpp \
     ProducerManager.cpp \
     Simulator.cpp \
-    StatisticsManager.cpp \
     WaveformGenerator.cpp \
     buffer.cpp \
     buffermanager.cpp \
     consumer.cpp \
     consumer_manager.cpp \
-    loggers.cpp \
+    logger.cpp \
     main.cpp \
     mainwindow.cpp \
     producer.cpp \
@@ -25,16 +25,16 @@ SOURCES += \
     request.cpp
 
 HEADERS += \
+    LoggerManager.h \
     ProducerManager.h \
     Simulator.h \
-    StatisticsManager.h \
     TestClass.h \
     WaveformGenerator.h \
     buffer.h \
     buffermanager.h \
     consumer.h \
     consumer_manager.h \
-    loggers.h \
+    logger.h \
     mainwindow.h \
     producer.h \
     qcustomplot.h \

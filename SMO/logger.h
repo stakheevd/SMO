@@ -1,14 +1,14 @@
-#ifndef LOGGERS_H
-#define LOGGERS_H
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <cmath>
 
 #include "request.h"
 
-class Loggers
+class Logger
 {
 public:
-  Loggers();
+  Logger();
 
   int get_total_number_requests() const;
   double get_probability_rejection() const;
@@ -35,4 +35,4 @@ private:
   double squared_processing_time;
 };
 
-#endif // LOGGERS_H
+#endif // LOGGER_H

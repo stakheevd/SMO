@@ -1,6 +1,6 @@
 #include "consumer_manager.h"
 
-ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb):
+ConsumerManager::ConsumerManager(LoggerManager* manager, int number_consumers, double lamb):
   consumers{},
   st_manager(manager)
 {
