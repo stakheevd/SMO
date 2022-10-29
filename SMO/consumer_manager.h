@@ -27,7 +27,6 @@ private:
 	int current_position;
 	double next_event_time;
   void select_releasing_consumer();
-	void increment_position();
 };
 
 #endif // CONSUMER_MANAGER_H

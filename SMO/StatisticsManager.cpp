@@ -17,9 +17,9 @@ void StatisticsManager::request_created(Request *request)
 	statistics[request->get_producer_id() - 1].request_created();
 }
 
-void StatisticsManager::init_received_request(Request *request)
+void StatisticsManager::log_received_request(Request *request)
 {
-	statistics[request->get_producer_id() - 1].init_received_request(request);
+  statistics[request->get_producer_id() - 1].log_received_request(request);
 }
 
 void StatisticsManager::log_released_request(Request *request, int cons_id)
@@ -42,8 +42,8 @@ PivotTable* StatisticsManager::init_pivot_table(double time)
 	{
 		table->number_requests.push_back(stat.get_total_number_requests());
 		table->probability_rejection.push_back(stat.get_probability_rejection());
-		table->average_elapsed_time.push_back(stat.get_average_elapsed_time());
-		table->average_waiting_time.push_back(stat.get_average_waiting_time());
+    table->average_elapsed_time.push_back(stat.get_average_elapsed_time());
+    table->average_waiting_time.push_back(stat.get_average_waiting_time());
 		table->average_processing_time.push_back(stat.get_average_processing_time());
 		table->dispersion_waiting_time.push_back(stat.get_dispersion_waiting_time());
 		table->dispersion_processing_time.push_back(stat.get_dispersion_processing_time());

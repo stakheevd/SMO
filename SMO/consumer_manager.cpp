@@ -47,19 +47,19 @@ bool ConsumerManager::can_receive_request()
 }
 
 void ConsumerManager::receive_request(Request* request)
-{ // Д2П1 TODO: Сделать for each через auto
-	for (int i = 0; i < consumers.size(); i++)
-	{
-		if (consumers[i].is_free())
-		{
-			consumers[i].receive_request(request);
+{ // Д2П1
+  for (size_t i = 0; i < consumers.size(); i++)
+  {
+    if (consumers[i].is_free())
+    {
+      consumers[i].receive_request(request);
 
-			st_manager->init_received_request(request);
+      st_manager->log_received_request(request);
 
       select_releasing_consumer();
-			return;
-		}
-	}
+      return;
+    }
+  }
 }
 
 const std::vector<Consumer> &ConsumerManager::get_consumers() const
@@ -74,7 +74,7 @@ double ConsumerManager::get_next_event_time() const
 
 bool ConsumerManager::is_empty()
 {
-	for (const auto& con : consumers) // Нужен ли здесь &?
+  for (const auto& con : consumers)
 		{
 			if (!con.is_free())
 				{
@@ -88,7 +88,7 @@ void ConsumerManager::select_releasing_consumer()
 {
 	double min_time = std::numeric_limits<double>::max();
 
-	for (int i = 0; i < consumers.size(); i++)
+  for (size_t i = 0; i < consumers.size(); i++)
 		{
 			if (!consumers[i].is_free())
 				{
@@ -101,9 +101,4 @@ void ConsumerManager::select_releasing_consumer()
 		}
 
 	next_event_time = min_time;
-}
-
-void ConsumerManager::increment_position()
-{
-	current_position = ((current_position + 1) == consumers.size()) ? 0 : ++current_position;
 }

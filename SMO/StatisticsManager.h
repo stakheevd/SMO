@@ -21,7 +21,7 @@ public:
   StatisticsManager(int number_producers, int number_consumers);
 
 	void request_created(Request* request);
-	void init_received_request(Request* request); // TODO: Rename var
+  void log_received_request(Request* request);
 	void log_released_request(Request* request, int cons_id);
 	void log_rejected_request(Request* request, double time);
 
