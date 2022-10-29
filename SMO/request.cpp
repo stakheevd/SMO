@@ -26,12 +26,7 @@ double Request::get_release_time() const
 
 int Request::get_producer_id() const
 {
-  return producer_id; // ЗДЕСЬ ПАДАЕТ №2
-}
-
-void Request::set_creation_time(double time)
-{
-  creation_time = time;
+  return producer_id;
 }
 
 void Request::set_receiving_time(double time)
@@ -44,55 +39,36 @@ void Request::set_release_time(double time)
   release_time = time;
 }
 
-int Request::getId() const
+int Request::get_id() const
 {
   return id;
 }
-// TODO: Refactor size of line
-StepData::StepData(const std::vector<Request*>& prod_data, const std::vector<Request*>& buf_data, const std::vector<Request*>& cons_data, const double t_stamp):
-  producer_data(prod_data),
-  buffer_data(buf_data),
-  consumer_data(cons_data),
-  timestamp(t_stamp)
+
+StepData::StepData(const std::vector<Request*>& prod_requests, const std::vector<Request*>& buf_requests,
+                     const std::vector<Request*>& cons_requests, const double e_time):
+  producers_requests(prod_requests),
+  buffers_requests(buf_requests),
+  consumers_requests(cons_requests),
+  elapsed_simulation_time(e_time)
 {
 }
 
-double StepData::get_timestamp() const
+double StepData::get_elapsed_simulation_time() const
 {
-  return timestamp;
+  return elapsed_simulation_time;
 }
 
-void StepData::set_timestamp(double new_timestamp)
+const std::vector<Request*>& StepData::get_producers_requests() const
 {
-  timestamp = new_timestamp;
+  return producers_requests;
 }
 
-const std::vector<Request*>& StepData::getProducer_data() const
+const std::vector<Request*>& StepData::get_buffers_requests() const
 {
-  return producer_data;
+  return buffers_requests;
 }
 
-void StepData::setProducer_data(const std::vector<Request*>& newProducer_data)
+const std::vector<Request*>& StepData::get_consumers_requests() const
 {
-  producer_data = newProducer_data;
-}
-
-const std::vector<Request*>& StepData::getBuffer_data() const
-{
-  return buffer_data;
-}
-
-void StepData::setBuffer_data(const std::vector<Request*>& newBuffer_data)
-{
-  buffer_data = newBuffer_data;
-}
-
-const std::vector<Request*>& StepData::getConsumer_data() const
-{
-  return consumer_data;
-}
-
-void StepData::setConsumer_data(const std::vector<Request*>& newConsumer_data)
-{
-  consumer_data = newConsumer_data;
+  return consumers_requests;
 }

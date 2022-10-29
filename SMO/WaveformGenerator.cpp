@@ -33,40 +33,40 @@ WaveformGenerator::WaveformGenerator(const int number_producers, const int numbe
 
 void WaveformGenerator::take_step(StepData* step)
 {
-  double start_x = previous->get_timestamp() * TIME_TO_PIXELS + MIN_X;
-  double end_x = step->get_timestamp() * TIME_TO_PIXELS + MIN_X;
+  double start_x = previous->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
+  double end_x = step->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
 
   double current_y = 2 * LINE_SPACING_BETWEEN_LINES - 32;
 
-  make_step_lines(producers_lines, previous->getProducer_data(), step->getProducer_data(), start_x, current_y, end_x, step->get_timestamp(), true);
-  make_step_lines(buffers_lines, previous->getBuffer_data(), step->getBuffer_data(), start_x, current_y, end_x, step->get_timestamp(), false);
-  make_step_lines(consumers_lines, previous->getConsumer_data(), step->getConsumer_data(), start_x, current_y, end_x, step->get_timestamp(), false);
+  make_step_lines(producers_lines, previous->get_producers_requests(), step->get_producers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), true);
+  make_step_lines(buffers_lines, previous->get_buffers_requests(), step->get_buffers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), false);
+  make_step_lines(consumers_lines, previous->get_consumers_requests(), step->get_consumers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), false);
 
   reject_requests_line->addToGroup(draw_line(start_x, current_y, end_x, current_y));
 
   for (size_t i = 0; i < producers_lines.size(); i++)
   {
-    if ((previous->getProducer_data()[i] != nullptr) && (previous->getProducer_data()[i] != step->getProducer_data()[i]))
+    if ((previous->get_producers_requests()[i] != nullptr) && (previous->get_producers_requests()[i] != step->get_producers_requests()[i]))
     {
-      if (std::find(step->getBuffer_data().begin(), step->getBuffer_data().end(), previous->getProducer_data()[i]) == step->getBuffer_data().end() &&
-            std::find(step->getConsumer_data().begin(), step->getConsumer_data().end(), previous->getProducer_data()[i]) == step->getConsumer_data().end())
+      if (std::find(step->get_buffers_requests().begin(), step->get_buffers_requests().end(), previous->get_producers_requests()[i]) == step->get_buffers_requests().end() &&
+            std::find(step->get_consumers_requests().begin(), step->get_consumers_requests().end(), previous->get_producers_requests()[i]) == step->get_consumers_requests().end())
       {
         reject_requests_line->addToGroup(draw_line(end_x, current_y, end_x, current_y - 10));
 
-        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->getProducer_data()[i]->get_producer_id(), previous->getProducer_data()[i]->getId()));
+        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->get_producers_requests()[i]->get_producer_id(), previous->get_producers_requests()[i]->get_id()));
       }
     }
   }
 
   for (size_t i = 0; i < buffers_lines.size(); i++)
   {
-    if ((previous->getBuffer_data()[i] != nullptr) && (previous->getBuffer_data()[i] != step->getBuffer_data()[i]))
+    if ((previous->get_buffers_requests()[i] != nullptr) && (previous->get_buffers_requests()[i] != step->get_buffers_requests()[i]))
     {
-      if (std::find(step->getConsumer_data().begin(), step->getConsumer_data().end(), previous->getBuffer_data()[i]) == step->getConsumer_data().end())
+      if (std::find(step->get_consumers_requests().begin(), step->get_consumers_requests().end(), previous->get_buffers_requests()[i]) == step->get_consumers_requests().end())
       {
         reject_requests_line->addToGroup(draw_line(end_x, current_y, end_x, current_y - 10));
 
-        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->getBuffer_data()[i]->get_producer_id(), previous->getBuffer_data()[i]->getId()));
+        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->get_buffers_requests()[i]->get_producer_id(), previous->get_buffers_requests()[i]->get_id()));
       }
     }
   }
@@ -131,11 +131,11 @@ void WaveformGenerator::make_step_lines(std::vector<QGraphicsItemGroup*>& lines,
       {
         if (is_producer)
         {
-          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), previous[i]->getId()));
+          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), previous[i]->get_id()));
         }
         else
         {
-          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), current[i]->getId()));
+          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), current[i]->get_id()));
         }
 
         lines[i]->addToGroup(add_time_label(end_x, start_y, time));
