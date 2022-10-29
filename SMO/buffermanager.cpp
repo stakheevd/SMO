@@ -17,7 +17,7 @@ std::vector<Request*> BufferManager::get_all_requests()
 {
   std::vector<Request*> buffered_requests;
 
-  for (auto buf : buffers)
+  for (const auto& buf : buffers)
     buffered_requests.push_back(buf.get_buffered_request());
 
   return buffered_requests;
@@ -58,7 +58,7 @@ void BufferManager::receive_request(Request *request)
 
 bool BufferManager::is_full() const
 {
-	for (auto buffer : buffers)
+  for (const auto& buffer : buffers)
 	{
 		if (buffer.is_free())
 			return false;
@@ -69,7 +69,7 @@ bool BufferManager::is_full() const
 
 bool BufferManager::is_empty() const
 {
-	for (auto buf : buffers)
+  for (const auto& buf : buffers)
 		{
 			if (!buf.is_free())
 				{

@@ -1,6 +1,5 @@
 #include "consumer.h"
 
-
 Consumer::Consumer(int cons_id, double lamb):
   consumer_id(cons_id),
   lambda(lamb),

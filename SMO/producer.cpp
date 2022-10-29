@@ -19,8 +19,6 @@ Request* Producer::send_request()
 
 void Producer::create_request()
 {
-  //std::srand((unsigned)time(NULL));
-
   std::mt19937_64 rng;
   // initialize the random number generator with time-dependent seed
   uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();

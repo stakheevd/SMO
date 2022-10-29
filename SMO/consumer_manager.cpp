@@ -1,18 +1,16 @@
 #include "consumer_manager.h"
 
-ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb)
+ConsumerManager::ConsumerManager(StatisticsManager* manager, int number_consumers, double lamb):
+  consumers{},
+  st_manager(manager),
+  current_position(0)
 {
-	consumers = std::vector<Consumer>();
-	current_position = 0;
-
 	for (int i = 0; i < number_consumers; i++)
 	{
 		consumers.push_back(Consumer(i + 1, lamb));
 	}
 
-	st_manager = manager;
-
-  select_consumer_by_priority();
+  select_releasing_consumer();
 }
 
 
@@ -30,11 +28,11 @@ std::vector<Request*> ConsumerManager::get_all_requests()
 
 void ConsumerManager::release_consumer()
 {
-	st_manager->log_released_request(consumers[next_free_consumer_id].get_current_request(), next_free_consumer_id);
+  st_manager->log_released_request(consumers[releasing_consumer_id].get_current_request(), releasing_consumer_id);
 
-	consumers[next_free_consumer_id].release_consumer();
+  consumers[releasing_consumer_id].release_consumer();
 
-  select_consumer_by_priority();
+  select_releasing_consumer();
 }
 
 bool ConsumerManager::can_receive_request()
@@ -58,7 +56,7 @@ void ConsumerManager::receive_request(Request* request)
 
 			st_manager->init_received_request(request);
 
-      select_consumer_by_priority();
+      select_releasing_consumer();
 			return;
 		}
 	}
@@ -86,7 +84,7 @@ bool ConsumerManager::is_empty()
 	return true;
 }
 
-void ConsumerManager::select_consumer_by_priority()
+void ConsumerManager::select_releasing_consumer()
 {
 	double min_time = std::numeric_limits<double>::max();
 
@@ -97,7 +95,7 @@ void ConsumerManager::select_consumer_by_priority()
 					if (min_time > consumers[i].get_current_request()->get_release_time())
 						{
 							min_time = consumers[i].get_current_request()->get_release_time();
-							next_free_consumer_id = i;
+              releasing_consumer_id = i;
 						}
 				}
 		}
