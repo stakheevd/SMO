@@ -50,8 +50,8 @@ void MainWindow::start_simulation()
     simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value());
   }
 
-  ui->start_auto_mode_button->setEnabled(false);
-  ui->start_auto_mode_button->setText("Симуляция завершена");
+  ui->start_manual_mode_button->setEnabled(false);
+  ui->start_manual_mode_button->setText("Симуляция завершена");
 
   // Для разного кол-ва источников
   QVector<double> vec_num_producers(80);

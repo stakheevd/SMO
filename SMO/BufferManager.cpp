@@ -89,10 +89,16 @@ Request *BufferManager::submit_request()
 
 void BufferManager::increment_placement_position()
 {
-  placement_position = (placement_position + 1 == (int)buffers.size()) ? 0 : ++placement_position;
+  if (placement_position + 1 == (int)buffers.size())
+    placement_position = 0;
+  else
+    placement_position++;
 }
 
 void BufferManager::increment_take_position()
 {
-  take_position = (take_position + 1 == (int)buffers.size()) ? 0 : ++take_position;
+  if (take_position + 1 == (int)buffers.size())
+    take_position = 0;
+  else
+    take_position++;
 }
