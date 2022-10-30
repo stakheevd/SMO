@@ -25,6 +25,7 @@ void Producer::create_request()
   rng.seed(ss);
   std::uniform_real_distribution<double> unif(0, 1);
 
+  // Пуассоновский закон распределения
   double delta_t = (-1.0 / (double)lambda) * std::log(unif(rng));
   double previous_creation_time = (stored_request == nullptr) ? 0 : stored_request->get_creation_time();
 

@@ -2,7 +2,7 @@
 
 BufferManager::BufferManager(LoggerManager* s_manager, int number_buffers):
   buffers{},
-  st_manager(s_manager),
+  logger_manager(s_manager),
   take_position(0),
   placement_position(0)
 {
@@ -39,17 +39,17 @@ void BufferManager::receive_request(Request *request)
 
     for (size_t i = 0; i < buffers.size(); i++)
     {
-      if (!buffers[i].is_free())
-      {
+      //if (!buffers[i].is_free())
+      //{
         if (buffers[i].get_buffered_request()->get_creation_time() < min_time)
         {
           min_time = buffers[i].get_buffered_request()->get_creation_time();
           ind = i;
         }
-      }
+      //}
     }
 
-    st_manager->log_rejected_request(request);
+    logger_manager->log_rejected_request(request);
 
     buffers[ind].receive_request(request);
   }

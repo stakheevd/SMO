@@ -23,25 +23,19 @@ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
-  void fill_producer_data(QVector<double>& v_n_prod, QVector<double>& v_p_r, QVector<double>& v_a_t, QVector<double>& v_u_p);
-  void fill_buffer_data(QVector<double>& v_n_bufs, QVector<double>& v_p_r, QVector<double>& v_a_t, QVector<double>& v_u_p);
-  void fill_consumer_data(QVector<double>& v_n_cons, QVector<double>& v_p_r, QVector<double>& v_a_t, QVector<double>& v_u_p);
+  void fill_producer_data(QVector<double>& vector_number_producers, QVector<double>& vector_prob_reject, QVector<double>& vector_avg_time, QVector<double>& vector_usg_ratio);
+  void fill_buffer_data(QVector<double>& vector_number_buffers, QVector<double>& vector_prob_reject, QVector<double>& vector_avg_time, QVector<double>& vector_usg_ratio);
+  void fill_consumer_data(QVector<double>& vector_number_consumers, QVector<double>& vector_prob_reject, QVector<double>& vector_avg_time, QVector<double>& vector_usg_ratio);
 
 private slots:
-
-  void on_startAutoMode_clicked();
-
-  void on_saveConf_clicked();
-
-  void on_startManualMode_clicked();
-
   void start_simulation();
-
   void on_clear_sim_button_clicked();
+  void on_save_conf_button_clicked();
+  void on_start_manual_mode_button_clicked();
+  void on_start_auto_mode_button_clicked();
 
 private:
   Ui::MainWindow *ui;
-  // std::unique_ptr
   Simulator* simulator;
   WaveformGenerator* wg;
 };

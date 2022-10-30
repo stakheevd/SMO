@@ -22,7 +22,7 @@ public:
 
 private:
 	std::vector<Consumer> consumers;
-	LoggerManager* st_manager;
+  LoggerManager* logger_manager;
   int releasing_consumer_id;
   double releasing_consumer_time;
 

@@ -20,7 +20,7 @@ public:
 
 private:
   std::vector<Buffer> buffers;
-  LoggerManager* st_manager;
+  LoggerManager* logger_manager;
   int take_position;
   int placement_position;
 

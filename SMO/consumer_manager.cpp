@@ -2,7 +2,7 @@
 
 ConsumerManager::ConsumerManager(LoggerManager* manager, int number_consumers, double lamb):
   consumers{},
-  st_manager(manager)
+  logger_manager(manager)
 {
 	for (int i = 0; i < number_consumers; i++)
 	{
@@ -25,7 +25,7 @@ std::vector<Request*> ConsumerManager::get_all_requests() const
 
 void ConsumerManager::release_consumer()
 {
-  st_manager->log_released_request(consumers[releasing_consumer_id].get_current_request(), releasing_consumer_id);
+  logger_manager->log_released_request(consumers[releasing_consumer_id].get_current_request(), releasing_consumer_id);
 
   consumers[releasing_consumer_id].release_consumer();
 
@@ -51,7 +51,7 @@ void ConsumerManager::receive_request(Request* request)
     {
       consumers[i].receive_request(request);
 
-      st_manager->log_received_request(request);
+      logger_manager->log_received_request(request);
 
       select_releasing_consumer();
       return;

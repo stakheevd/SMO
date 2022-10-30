@@ -168,7 +168,7 @@ QTabBar::tab::hover
          </widget>
         </item>
         <item row="14" column="1">
-         <widget class="QPushButton" name="saveConf">
+         <widget class="QPushButton" name="save_conf_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -356,7 +356,7 @@ QTabBar::tab::hover
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="1" column="0" colspan="2">
-         <widget class="QPushButton" name="startManualMode">
+         <widget class="QPushButton" name="start_manual_mode_button">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -435,7 +435,7 @@ QTabBar::tab::hover
              </widget>
             </item>
             <item row="7" column="0" colspan="5">
-             <widget class="QPushButton" name="startAutoMode">
+             <widget class="QPushButton" name="start_auto_mode_button">
               <property name="text">
                <string>Начать тестирование</string>
               </property>
