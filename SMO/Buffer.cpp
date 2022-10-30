@@ -1,4 +1,4 @@
-#include "buffer.h"
+#include "Buffer.h"
 
 Buffer::Buffer(int buf_id):
   buffer_id(buf_id),

@@ -1,4 +1,4 @@
-#include "producer.h"
+#include "Producer.h"
 
 Producer::Producer(int prod_id, double lamb):
   producer_id(prod_id),

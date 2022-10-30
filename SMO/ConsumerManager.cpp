@@ -1,4 +1,4 @@
-#include "consumer_manager.h"
+#include "ConsumerManager.h"
 
 ConsumerManager::ConsumerManager(LoggerManager* manager, int number_consumers, double lamb):
   consumers{},

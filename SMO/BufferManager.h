@@ -3,7 +3,7 @@
 
 #include <limits>
 
-#include "buffer.h"
+#include "Buffer.h"
 #include "LoggerManager.h"
 
 class BufferManager

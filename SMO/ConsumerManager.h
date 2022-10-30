@@ -1,9 +1,9 @@
-#ifndef CONSUMER_MANAGER_H
-#define CONSUMER_MANAGER_H
+#ifndef CONSUMERMANAGER_H
+#define CONSUMERMANAGER_H
 
 #include <limits>
 
-#include "consumer.h"
+#include "Consumer.h"
 #include "LoggerManager.h"
 
 class ConsumerManager
@@ -29,4 +29,4 @@ private:
   void select_releasing_consumer();
 };
 
-#endif // CONSUMER_MANAGER_H
+#endif // CONSUMERMANAGER_H

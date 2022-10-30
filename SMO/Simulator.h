@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <random>
 
-#include "buffermanager.h"
-#include "consumer_manager.h"
+#include "BufferManager.h"
+#include "ConsumerManager.h"
 #include "ProducerManager.h"
 #include "LoggerManager.h"
 

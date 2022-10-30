@@ -1,4 +1,4 @@
-#include "buffermanager.h"
+#include "BufferManager.h"
 
 BufferManager::BufferManager(LoggerManager* s_manager, int number_buffers):
   buffers{},
@@ -39,14 +39,11 @@ void BufferManager::receive_request(Request *request)
 
     for (size_t i = 0; i < buffers.size(); i++)
     {
-      //if (!buffers[i].is_free())
-      //{
-        if (buffers[i].get_buffered_request()->get_creation_time() < min_time)
-        {
-          min_time = buffers[i].get_buffered_request()->get_creation_time();
-          ind = i;
-        }
-      //}
+      if (buffers[i].get_buffered_request()->get_creation_time() < min_time)
+      {
+        min_time = buffers[i].get_buffered_request()->get_creation_time();
+        ind = i;
+      }
     }
 
     logger_manager->log_rejected_request(request);

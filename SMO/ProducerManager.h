@@ -1,8 +1,8 @@
 #ifndef PRODUCERMANAGER_H
 #define PRODUCERMANAGER_H
 
-#include "request.h"
-#include "producer.h"
+#include "Request.h"
+#include "Producer.h"
 #include "LoggerManager.h"
 
 class ProducerManager
@@ -19,7 +19,7 @@ public:
 
 private:
   std::vector<Producer> producers;
-  LoggerManager* st_manager;
+  LoggerManager* logger_manager;
   int creating_producer_id;
   int number_released_requests;
   double creating_producer_time;

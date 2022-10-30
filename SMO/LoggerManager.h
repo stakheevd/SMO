@@ -1,7 +1,7 @@
 #ifndef LOGGERMANAGER_H
 #define LOGGERMANAGER_H
 
-#include "logger.h"
+#include "Logger.h"
 
 struct PivotTable
 {

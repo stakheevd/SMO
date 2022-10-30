@@ -2,7 +2,7 @@
 
 ProducerManager::ProducerManager(LoggerManager* manager, int num_prod, double lamb):
   producers{},
-  st_manager(manager),
+  logger_manager(manager),
   number_released_requests(0)
 {
 	for (int i = 0; i < num_prod; i++)
@@ -29,7 +29,7 @@ Request* ProducerManager::submit_request()
 
   select_creating_producer();
 
-	st_manager->request_created(submitted_request);
+	logger_manager->request_created(submitted_request);
   number_released_requests++;
 
 	return submitted_request;

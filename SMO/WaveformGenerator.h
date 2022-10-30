@@ -6,7 +6,7 @@
 #include <string>
 #include <algorithm>
 
-#include "request.h"
+#include "Request.h"
 
 class WaveformGenerator : public QGraphicsView
 {

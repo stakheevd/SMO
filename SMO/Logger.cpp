@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "Logger.h"
 
 Logger::Logger():
   total_number_requests(0),
@@ -20,13 +20,9 @@ double Logger::get_probability_rejection() const
 double Logger::get_average_elapsed_time() const
 {
   if (released_number_requests != 0)
-  {
     return (elapsed_time / (double)released_number_requests);
-  }
   else
-  {
     return 0;
-  }
 }
 
 double Logger::get_average_processing_time() const

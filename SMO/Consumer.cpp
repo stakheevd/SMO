@@ -1,4 +1,4 @@
-#include "consumer.h"
+#include "Consumer.h"
 
 Consumer::Consumer(int cons_id, double lamb):
   consumer_id(cons_id),
@@ -16,6 +16,7 @@ void Consumer::receive_request(Request* req)
   rng.seed(ss);
   std::uniform_real_distribution<double> unif(0, 1);
 
+  // Экспоненциальный закон
   double delta_t = -(1.0 / (double)lambda) * std::log(unif(rng));
 
 	if (previous_time > req->get_creation_time())

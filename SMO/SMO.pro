@@ -9,36 +9,36 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Buffer.cpp \
+    BufferManager.cpp \
+    Consumer.cpp \
+    ConsumerManager.cpp \
+    Logger.cpp \
     LoggerManager.cpp \
+    Producer.cpp \
     ProducerManager.cpp \
+    Request.cpp \
     Simulator.cpp \
     WaveformGenerator.cpp \
-    buffer.cpp \
-    buffermanager.cpp \
-    consumer.cpp \
-    consumer_manager.cpp \
-    logger.cpp \
     main.cpp \
     mainwindow.cpp \
-    producer.cpp \
-    qcustomplot.cpp \
-    request.cpp
+    qcustomplot.cpp
 
 HEADERS += \
+    Buffer.h \
+    BufferManager.h \
+    Consumer.h \
+    ConsumerManager.h \
+    Logger.h \
     LoggerManager.h \
+    Producer.h \
     ProducerManager.h \
+    Request.h \
     Simulator.h \
     TestClass.h \
     WaveformGenerator.h \
-    buffer.h \
-    buffermanager.h \
-    consumer.h \
-    consumer_manager.h \
-    logger.h \
     mainwindow.h \
-    producer.h \
-    qcustomplot.h \
-    request.h
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui
