@@ -1,16 +1,20 @@
 #include "WaveformGenerator.h"
 
 WaveformGenerator::WaveformGenerator(const int number_producers, const int number_buffers, const int number_consumers, StepStatus* init_state, QWidget* parent):
-  QGraphicsView(parent)
+  QGraphicsView(parent),
+  producers_lines{},
+  buffers_lines{},
+  consumers_lines{}
 {
   plot = new QGraphicsScene();
   setAlignment(Qt::AlignLeft);
 
   setScene(plot);
 
-  previous = new StepStatus(std::vector<Request*> (number_producers, nullptr),
-                          std::vector<Request*> (number_buffers, nullptr),
-                          std::vector<Request*> (number_consumers, nullptr), 0);
+  previous_step_status = new StepStatus(std::vector<Request*> (number_producers, nullptr),
+                            std::vector<Request*> (number_buffers, nullptr),
+                            std::vector<Request*> (number_consumers, nullptr),
+                            0);
 
   double offset_label = LINE_SPACING_BETWEEN_LABELS;
 
@@ -22,72 +26,74 @@ WaveformGenerator::WaveformGenerator(const int number_producers, const int numbe
   plot->addItem(reject_requests_line);
 
   QGraphicsTextItem* reject_label = plot->addText("Отказ");
-
   reject_requests_line->addToGroup(reject_label);
 
   reject_label->setPos(10, offset_label);
   reject_label->setScale(1.6);
 
-  take_step(init_state);
+  draw_step(init_state);
 }
 
-void WaveformGenerator::take_step(StepStatus* step)
+void WaveformGenerator::draw_step(StepStatus* step)
 {
-  double start_x = previous->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
+  double start_x = previous_step_status->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
   double end_x = step->get_elapsed_simulation_time() * TIME_TO_PIXELS + MIN_X;
 
   double current_y = 2 * LINE_SPACING_BETWEEN_LINES - 32;
 
-  make_step_lines(producers_lines, previous->get_producers_requests(), step->get_producers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), true);
-  make_step_lines(buffers_lines, previous->get_buffers_requests(), step->get_buffers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), false);
-  make_step_lines(consumers_lines, previous->get_consumers_requests(), step->get_consumers_requests(), start_x, current_y, end_x, step->get_elapsed_simulation_time(), false);
+  draw_type_lines(producers_lines,
+                  previous_step_status->get_producers_requests(),
+                  step->get_producers_requests(),
+                  start_x,
+                  current_y,
+                  end_x,
+                  step->get_elapsed_simulation_time(),
+                  true);
 
-  reject_requests_line->addToGroup(draw_line(start_x, current_y, end_x, current_y));
+  draw_type_lines(buffers_lines,
+                  previous_step_status->get_buffers_requests(),
+                  step->get_buffers_requests(),
+                  start_x,
+                  current_y,
+                  end_x,
+                  step->get_elapsed_simulation_time(),
+                  false);
 
-  for (size_t i = 0; i < producers_lines.size(); i++)
-  {
-    if ((previous->get_producers_requests()[i] != nullptr) && (previous->get_producers_requests()[i] != step->get_producers_requests()[i]))
-    {
-      if (std::find(step->get_buffers_requests().begin(), step->get_buffers_requests().end(), previous->get_producers_requests()[i]) == step->get_buffers_requests().end() &&
-            std::find(step->get_consumers_requests().begin(), step->get_consumers_requests().end(), previous->get_producers_requests()[i]) == step->get_consumers_requests().end())
-      {
-        reject_requests_line->addToGroup(draw_line(end_x, current_y, end_x, current_y - 10));
+  draw_type_lines(consumers_lines,
+                  previous_step_status->get_consumers_requests(),
+                  step->get_consumers_requests(),
+                  start_x,
+                  current_y,
+                  end_x,
+                  step->get_elapsed_simulation_time(),
+                  false);
 
-        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->get_producers_requests()[i]->get_producer_id(), previous->get_producers_requests()[i]->get_id()));
-      }
-    }
-  }
+  reject_requests_line->addToGroup(plot->addLine(start_x, current_y, end_x, current_y, QPen(Qt::gray, 3)));
 
   for (size_t i = 0; i < buffers_lines.size(); i++)
   {
-    if ((previous->get_buffers_requests()[i] != nullptr) && (previous->get_buffers_requests()[i] != step->get_buffers_requests()[i]))
+    // Если в буфере поменялась заявка
+    if ((previous_step_status->get_buffers_requests()[i] != nullptr)
+          && (previous_step_status->get_buffers_requests()[i] != step->get_buffers_requests()[i]))
     {
-      if (std::find(step->get_consumers_requests().begin(), step->get_consumers_requests().end(), previous->get_buffers_requests()[i]) == step->get_consumers_requests().end())
+      // Если на прибор не попала предыдущая заявка
+      if (std::find(step->get_consumers_requests().begin(), step->get_consumers_requests().end(),
+           previous_step_status->get_buffers_requests()[i]) == step->get_consumers_requests().end())
       {
-        reject_requests_line->addToGroup(draw_line(end_x, current_y, end_x, current_y - 10));
+        reject_requests_line->addToGroup(plot->addLine(end_x, current_y, end_x, current_y - 10, QPen(Qt::gray, 3)));
 
-        reject_requests_line->addToGroup(add_label(end_x, current_y - 35, previous->get_buffers_requests()[i]->get_producer_id(), previous->get_buffers_requests()[i]->get_id()));
+        reject_requests_line->addToGroup(add_label(end_x,
+                                                   current_y - 35,
+                                                   previous_step_status->get_buffers_requests()[i]->get_producer_id(),
+                                                   previous_step_status->get_buffers_requests()[i]->get_id()));
+
+        reject_requests_line->addToGroup(add_time_label(end_x, current_y, step->get_elapsed_simulation_time()));
       }
     }
   }
 
-  delete previous;
-  previous = step;
-}
-
-const std::vector<QGraphicsItemGroup*>& WaveformGenerator::get_producers_lines() const
-{
-  return producers_lines;
-}
-
-void WaveformGenerator::set_producers_lines(const std::vector<QGraphicsItemGroup*>& new_producers_lines)
-{
-  producers_lines = new_producers_lines;
-}
-
-inline QGraphicsLineItem* WaveformGenerator::draw_line(double start_x, double start_y, double end_x, double end_y)
-{
-  return plot->addLine(start_x, start_y, end_x, end_y, QPen(Qt::gray, 3));
+  delete previous_step_status;
+  previous_step_status = step;
 }
 
 QGraphicsTextItem* WaveformGenerator::add_label(double x, double y, double producer_id, int number)
@@ -109,63 +115,62 @@ QGraphicsTextItem* WaveformGenerator::add_time_label(double x, double y, double 
   return time_label;
 }
 
-void WaveformGenerator::make_step_lines(std::vector<QGraphicsItemGroup*>& lines, const std::vector<Request*>& previous, const std::vector<Request*>& current, double start_x, double& start_y, double end_x, double time, bool is_producer)
+void WaveformGenerator::draw_type_lines(std::vector<QGraphicsItemGroup*>& type_lines, const std::vector<Request*>& prev_step_status_requests,
+                                          const std::vector<Request*>& cur_step_status_requests, double start_x, double& start_y,
+                                            double end_x, double time, bool is_producer)
 {
-  for (size_t i = 0; i < lines.size(); i++)
+  for (size_t i = 0; i < type_lines.size(); i++)
   {
-    double offset_y = (previous[i] != nullptr) ? -10 : 0;
+    // До этого уже был принял сигнал или нет?
+    double offset_y = (prev_step_status_requests[i] != nullptr) ? -10 : 0;
 
-    if (previous[i] != current[i])
+    // Сигнал поменял своё состояние?
+    if (prev_step_status_requests[i] != cur_step_status_requests[i])
     {
-      if (!is_producer || !(time == 0))
+      // Добавляем вертикальную линию
+      if (!(is_producer && (time == 0)))
       {
-        lines[i]->addToGroup(draw_line(end_x, start_y, end_x, start_y - 10)); // рисуем линию вверх
+        type_lines[i]->addToGroup(plot->addLine(end_x, start_y, end_x, start_y - 10, QPen(Qt::gray, 3)));
+        type_lines[i]->addToGroup(add_time_label(end_x, start_y, time));
       }
-      else
-      {
-      }
-      // ***** Добавить timestamp'ы на спад сигнала
-      //lines[i]->addToGroup(add_time_label(end_x, start_y, time));
 
-      if (current[i] != nullptr && time != 0)
+      // Если фронт сигнала, добавляем id заявки
+      if (cur_step_status_requests[i] != nullptr && time != 0)
       {
         if (is_producer)
         {
-          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), previous[i]->get_id()));
+          type_lines[i]->addToGroup(add_label(end_x, start_y - 35, cur_step_status_requests[i]->get_producer_id(), prev_step_status_requests[i]->get_id()));
         }
         else
         {
-          lines[i]->addToGroup(add_label(end_x, start_y - 35, current[i]->get_producer_id(), current[i]->get_id()));
+          type_lines[i]->addToGroup(add_label(end_x, start_y - 35, cur_step_status_requests[i]->get_producer_id(), cur_step_status_requests[i]->get_id()));
         }
-
-        lines[i]->addToGroup(add_time_label(end_x, start_y, time));
       }
     }
 
     if (is_producer)
     {
-      lines[i]->addToGroup(draw_line(start_x, start_y, end_x, start_y));
+      type_lines[i]->addToGroup(plot->addLine(start_x, start_y, end_x, start_y, QPen(Qt::gray, 3)));
     }
     else
     {
-      lines[i]->addToGroup(draw_line(start_x, start_y + offset_y, end_x, start_y + offset_y));
+      type_lines[i]->addToGroup(plot->addLine(start_x, start_y + offset_y, end_x, start_y + offset_y, QPen(Qt::gray, 3)));
     }
 
     start_y += LINE_SPACING_BETWEEN_LINES;
   }
 }
 
-void WaveformGenerator::create_input_data_lines(const int number, double& offset, std::vector<QGraphicsItemGroup*>& line_holder, const std::string& label)
+void WaveformGenerator::create_input_data_lines(const int number, double& offset, std::vector<QGraphicsItemGroup*>& lines, const std::string& label)
 {
   for (int i = 0; i < number; i++)
   {
     QGraphicsItemGroup* line = new QGraphicsItemGroup();
-    line_holder.push_back(line);
+    lines.push_back(line);
 
     plot->addItem(line);
 
     QGraphicsTextItem* label_with_id = plot->addText(QString::fromUtf8(label + " " + std::to_string(i + 1)));
-
 
     line->addToGroup(label_with_id);
 
@@ -179,9 +184,4 @@ void WaveformGenerator::create_input_data_lines(const int number, double& offset
 QGraphicsScene* WaveformGenerator::get_plot() const
 {
   return plot;
-}
-
-void WaveformGenerator::set_plot(QGraphicsScene* new_plot)
-{
-  plot = new_plot;
 }

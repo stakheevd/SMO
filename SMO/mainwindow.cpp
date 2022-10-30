@@ -67,7 +67,7 @@ void MainWindow::on_startManualMode_clicked()
 {
   ui->statusbar->setVisible(false);
   simulator->take_step();
-  wg->take_step(simulator->get_step_status());
+  wg->draw_step(simulator->get_step_status());
 }
 
 void MainWindow::start_simulation()
@@ -223,7 +223,7 @@ void MainWindow::start_simulation()
   main_table->setRowCount(ui->number_producers->value());
   us_table->setRowCount(ui->number_consumers->value());
 
-  for (size_t i = 0; i < ui->number_producers->value(); i++)
+  for (int i = 0; i < ui->number_producers->value(); i++)
   {
     main_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     main_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->number_requests[i])));
@@ -235,7 +235,7 @@ void MainWindow::start_simulation()
     main_table->setItem(i, 7, new QTableWidgetItem(QString::number(table->dispersion_processing_time[i])));
   }
 
-  for (size_t i = 0; i < ui->number_consumers->value(); i++)
+  for (int i = 0; i < ui->number_consumers->value(); i++)
   {
     us_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     us_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->usage_ratio[i])));
