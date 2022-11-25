@@ -72,28 +72,12 @@ QTabBar::tab::hover
         <string>Настройки</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="8" column="4">
-         <widget class="QSpinBox" name="buffer_size">
+        <item row="6" column="4">
+         <widget class="QSpinBox" name="number_producers">
           <property name="value">
-           <number>4</number>
+           <number>16</number>
           </property>
          </widget>
-        </item>
-        <item row="8" column="0">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>280</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="4" column="5">
          <spacer name="horizontalSpacer">
@@ -111,39 +95,29 @@ QTabBar::tab::hover
           </property>
          </spacer>
         </item>
-        <item row="1" column="6" rowspan="16">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Дисциплины и законы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Источники&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Пуассоновский закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Приборы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2.  Экспоненциальный закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Дисциплины&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Заполнение буферной памяти по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Отказ самой старой в буфере&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Выбор обслуживающих приборов по их приоритету&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;4. Выбор заявки на обслуживание из буфера по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Виды отражения результатов&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Графики по значениям параметров&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Временные диаграммы, текущее состояние&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Сводные таблицы&lt;/pre&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="4">
-         <widget class="QDoubleSpinBox" name="lamb">
-          <property name="maximum">
-           <double>1000.000000000000000</double>
-          </property>
-          <property name="value">
-           <double>3.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="4">
-         <widget class="QSpinBox" name="number_requests">
+        <item row="14" column="1">
+         <widget class="QLabel" name="label_5">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="maximum">
-           <number>999999</number>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
           </property>
+          <property name="text">
+           <string>Значение λ (устройства)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="4">
+         <widget class="QSpinBox" name="buffer_size">
           <property name="value">
-           <number>20000</number>
+           <number>11</number>
           </property>
          </widget>
         </item>
@@ -167,42 +141,6 @@ QTabBar::tab::hover
           </property>
          </widget>
         </item>
-        <item row="14" column="1">
-         <widget class="QPushButton" name="save_conf_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Cantarell</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Сохранить конфигурацию</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="1">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="12" column="1">
          <widget class="QLabel" name="label_7">
           <property name="sizePolicy">
@@ -219,59 +157,9 @@ QTabBar::tab::hover
            </font>
           </property>
           <property name="text">
-           <string>Значение λ</string>
+           <string>Значение λ (источника)</string>
           </property>
          </widget>
-        </item>
-        <item row="6" column="4">
-         <widget class="QSpinBox" name="number_producers">
-          <property name="value">
-           <number>5</number>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="4">
-         <widget class="QSpinBox" name="number_consumers">
-          <property name="value">
-           <number>6</number>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLabel" name="label_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Cantarell</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Размер буфера</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="6" column="1">
          <widget class="QLabel" name="label_2">
@@ -290,6 +178,42 @@ QTabBar::tab::hover
           </property>
           <property name="text">
            <string>Количество источников      </string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Размер буфера</string>
           </property>
          </widget>
         </item>
@@ -313,6 +237,42 @@ QTabBar::tab::hover
           </property>
          </widget>
         </item>
+        <item row="4" column="4">
+         <widget class="QSpinBox" name="number_requests">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999999</number>
+          </property>
+          <property name="value">
+           <number>2900</number>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="1">
+         <widget class="QPushButton" name="save_conf_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Сохранить конфигурацию</string>
+          </property>
+         </widget>
+        </item>
         <item row="5" column="1">
          <spacer name="verticalSpacer">
           <property name="orientation">
@@ -329,8 +289,128 @@ QTabBar::tab::hover
           </property>
          </spacer>
         </item>
-        <item row="9" column="1">
-         <spacer name="verticalSpacer_3">
+        <item row="14" column="4">
+         <widget class="QDoubleSpinBox" name="lamb_dev">
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.120000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="15" column="1">
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>50</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="7" column="1">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="17" column="1">
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>100</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="6" rowspan="18">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Дисциплины и законы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Источники&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Пуассоновский закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Приборы&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Бесконечный источник&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2.  Экспоненциальный закон распределения&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Дисциплины&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Заполнение буферной памяти по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Отказ самой старой в буфере&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Выбор обслуживающих приборов по их приоритету&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;4. Выбор заявки на обслуживание из буфера по кольцу&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Виды отражения результатов&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;pre&gt;1. Графики по значениям параметров&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;2. Временные диаграммы, текущее состояние&lt;/pre&gt; &lt;/p&gt;&lt;p&gt;&lt;pre&gt;3. Сводные таблицы&lt;/pre&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="4">
+         <widget class="QSpinBox" name="number_consumers">
+          <property name="value">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>280</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="12" column="4">
+         <widget class="QDoubleSpinBox" name="lamb">
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.030000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="1">
+         <spacer name="verticalSpacer_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -583,6 +663,12 @@ QTabBar::tab::hover
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="1" column="0">
              <widget class="QTableWidget" name="tableWidget">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>2</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>

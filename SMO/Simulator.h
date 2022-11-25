@@ -13,7 +13,7 @@ class Simulator
 {
 public:
   Simulator(int num_requests, int num_prod,
-              int num_buf, int num_cons, double lamb);
+              int num_buf, int num_cons, double lamb, double lamb_device);
 
   void run_full_simulation();
   void take_step();

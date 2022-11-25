@@ -1,13 +1,13 @@
 #include "Simulator.h"
 
 Simulator::Simulator(int num_requests, int num_prod,
-                       int num_buf, int num_cons, double lamb):
+                       int num_buf, int num_cons, double lamb, double lamb_device):
   releasing_consumer_time(0),
   creating_producer_time(0),
   number_requests(num_requests)
 {
   loggers = new LoggerManager(num_prod, num_cons);
-  consumers = new ConsumerManager(loggers, num_cons, lamb);
+  consumers = new ConsumerManager(loggers, num_cons, lamb_device);
   buffers = new BufferManager(loggers, num_buf);
   producers = new ProducerManager(loggers, num_prod, lamb);
 }

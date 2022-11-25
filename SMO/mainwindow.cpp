@@ -22,7 +22,7 @@ void MainWindow::on_save_conf_button_clicked()
    ui->tabWidget->widget(1)->setEnabled(true);
    ui->tabWidget->widget(2)->setEnabled(true);
 
-  simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value());
+  simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value(), ui->lamb_dev->value());
   wg = new WaveformGenerator(ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), simulator->get_step_status());
 
   ui->graphicsView->setScene(wg->get_plot());
@@ -47,7 +47,7 @@ void MainWindow::start_simulation()
   if (simulator->get_releasing_consumer_time() > 0)
   {
     delete simulator;
-    simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value());
+    simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value(), ui->lamb_dev->value());
   }
 
   ui->start_manual_mode_button->setEnabled(false);
@@ -190,10 +190,10 @@ void MainWindow::start_simulation()
     main_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->number_requests[i])));
     main_table->setItem(i, 2, new QTableWidgetItem(QString::number(table->probability_rejection[i])));
     main_table->setItem(i, 3, new QTableWidgetItem(QString::number(table->average_elapsed_time[i])));
-    main_table->setItem(i, 4, new QTableWidgetItem(QString::number(table->average_waiting_time[i])));
-    main_table->setItem(i, 5, new QTableWidgetItem(QString::number(table->average_processing_time[i])));
-    main_table->setItem(i, 6, new QTableWidgetItem(QString::number(table->dispersion_waiting_time[i])));
-    main_table->setItem(i, 7, new QTableWidgetItem(QString::number(table->dispersion_processing_time[i])));
+    main_table->setItem(i, 4, new QTableWidgetItem(QString::number(table->average_waiting_time[i] == table->average_waiting_time[i] ? table->average_waiting_time[i] : 0)));
+    main_table->setItem(i, 5, new QTableWidgetItem(QString::number(table->average_processing_time[i] == table->average_processing_time[i] ? table->average_processing_time[i] : 0)));
+    main_table->setItem(i, 6, new QTableWidgetItem(QString::number(table->dispersion_waiting_time[i] == table->dispersion_waiting_time[i] ? table->dispersion_waiting_time[i] : 0)));
+    main_table->setItem(i, 7, new QTableWidgetItem(QString::number(table->dispersion_processing_time[i] == table->dispersion_processing_time[i] ? table->dispersion_processing_time[i] : 0)));
   }
 
   for (int i = 0; i < ui->number_consumers->value(); i++)
@@ -201,6 +201,16 @@ void MainWindow::start_simulation()
     us_table->setItem(i, 0, new QTableWidgetItem(QString::number(i+1)));
     us_table->setItem(i, 1, new QTableWidgetItem(QString::number(table->usage_ratio[i])));
   }
+
+  // This section is for finding average values, required <algorithm>, <QDebug>
+  //if (!table->probability_rejection.empty())
+  //  qDebug() << QString::number(std::accumulate(table->probability_rejection.begin(), table->probability_rejection.end(), 0.0) / table->probability_rejection.size(), 'f', 4);
+
+  //if (!table->average_elapsed_time.empty())
+  //  qDebug() << QString::number(std::accumulate(table->average_elapsed_time.begin(), table->average_elapsed_time.end(), 0.0) / table->average_elapsed_time.size(), 'f', 4);
+
+  //if (!table->usage_ratio.empty())
+  //  qDebug() << QString::number(std::accumulate(table->usage_ratio.begin(), table->usage_ratio.end(), 0.0) / table->usage_ratio.size(), 'f', 4);
 }
 
 void MainWindow::fill_producer_data(QVector<double>& vector_number_producers, QVector<double>& vector_prob_reject, QVector<double>& vector_avg_time, QVector<double>& vector_usg_ratio)
@@ -210,7 +220,7 @@ void MainWindow::fill_producer_data(QVector<double>& vector_number_producers, QV
 
   for (int i = 1; i <= vector_number_producers.size(); i++)
   {
-		temp_simulator_1 = new Simulator(4000, i, 4, 4, 3.0);
+    temp_simulator_1 = new Simulator(4000, i, 4, 4, 3.0, 3.0);
 		temp_simulator_1->run_full_simulation();
 		temp_table_1 = temp_simulator_1->get_pivot_table();
 
@@ -231,7 +241,7 @@ void MainWindow::fill_buffer_data(QVector<double>& vector_number_buffers, QVecto
 
     for (int i = 1; i <= vector_number_buffers.size(); i++)
     {
-			temp_simulator_2 = new Simulator(4000, 4, i, 4, 3.0);
+      temp_simulator_2 = new Simulator(4000, 4, i, 4, 3.0, 3.0);
 			temp_simulator_2->run_full_simulation();
 			temp_table_2 = temp_simulator_2->get_pivot_table();
 
@@ -252,7 +262,7 @@ void MainWindow::fill_consumer_data(QVector<double>& vector_number_consumers, QV
 
   for (int i = 1; i <= vector_number_consumers.size(); i++)
   {
-		temp_simulator_3 = new Simulator(4000, 4, 4, i, 3.0);
+    temp_simulator_3 = new Simulator(4000, 4, 4, i, 3.0, 3.0);
 		temp_simulator_3->run_full_simulation();
 		temp_table_3 = temp_simulator_3->get_pivot_table();
 
@@ -276,7 +286,7 @@ void MainWindow::on_clear_sim_button_clicked()
     delete simulator;
     delete wg;
 
-    simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value());
+    simulator = new Simulator(ui->number_requests->value(), ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), ui->lamb->value(), ui->lamb_dev->value());
     wg = new WaveformGenerator(ui->number_producers->value(), ui->buffer_size->value(), ui->number_consumers->value(), simulator->get_step_status());
 
     ui->graphicsView->setScene(wg->get_plot());
